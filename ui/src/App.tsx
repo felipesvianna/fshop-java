@@ -1,10 +1,14 @@
 import React from 'react';
+import { Route, Routes } from "react-router-dom";
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold">F-Shop</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage/>}/>
+      <Route path="/admin" element={<LoginPage/>}/>
+    </Routes>
   );
 }
 
