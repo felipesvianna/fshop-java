@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ManagePage from "./pages/ManagePage/ManagePage";
-import PrivateRoute from "./util/PrivateRoute/PrivateRoute";
 
 function App() {
   return (

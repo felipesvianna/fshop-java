@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { shallow, ShallowWrapper } from "enzyme";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "./LoginForm";
 import LoginPage from "./LoginPage";
 
 async function fillAndSubmitLoginForm() {
@@ -30,7 +30,7 @@ describe("LoginPage page", () => {
   });
 
   it("should call handleSubmit on button click", async () => {
-    const handleSubmit = jest.fn();
+    const handleSubmit = jest.fn((e) => e.preventDefault());
     render(<LoginForm handleSubmit={handleSubmit} />);
     await fillAndSubmitLoginForm();
     expect(handleSubmit).toBeCalled();

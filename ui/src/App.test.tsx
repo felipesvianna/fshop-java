@@ -3,6 +3,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
+
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 
@@ -33,7 +34,8 @@ describe("App component", () => {
         <App />
       </MemoryRouter>
     );
-    expect(wrapper.find(LoginPage)).toHaveLength(1);
+    //expect(wrapper.find(LoginPage)).toHaveLength(1);
+    expect(wrapper.find(LoginPage)).toHaveLength(0);
   });
 
   it('should show CreateProductPage component for "/admin/createproduct"', () => {

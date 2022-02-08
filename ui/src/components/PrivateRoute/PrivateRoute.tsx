@@ -6,7 +6,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ component: Component }) => {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   return isAuthenticated ? <Component /> : <Navigate to="/admin" />;
 };
 
