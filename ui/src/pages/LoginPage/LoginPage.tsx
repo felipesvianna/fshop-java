@@ -4,7 +4,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 const LoginPage: FC = () => {
   return (
     <>
-      <p className="text-center">LoginPage</p>
+      <p>LoginPage</p>
       <LoginForm />
     </>
   );

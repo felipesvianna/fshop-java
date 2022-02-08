@@ -2,9 +2,9 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
+import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import ManagePage from "./pages/ManagePage/ManagePage";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
@@ -34,5 +34,14 @@ describe("App component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(LoginPage)).toHaveLength(1);
+  });
+
+  it('should show CreateProductPage component for "/admin/createproduct"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/createproduct"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(CreateProductPage)).toHaveLength(1);
   });
 });

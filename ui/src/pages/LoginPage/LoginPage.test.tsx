@@ -5,8 +5,8 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import LoginPage from "./LoginPage";
 
 async function fillAndSubmitLoginForm() {
-  const usernameField = screen.getByLabelText("Username");
-  const passwordField = screen.getByLabelText("Password");
+  const usernameField = screen.getByLabelText("Username:");
+  const passwordField = screen.getByLabelText("Password:");
 
   fireEvent.change(usernameField, { target: { value: "username" } });
   fireEvent.change(passwordField, { target: { value: "password" } });
