@@ -1,23 +1,69 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import validateCreateProductForm from "./validateCreateProductForm";
 
 interface CreateProductFormProps {
   handleSubmit?: (e: React.SyntheticEvent) => void;
 }
 
+interface ProductProps {
+  name?: string;
+  category?: string;
+  quantity: number;
+}
+
+interface FormErrorsProps {
+  name?: string;
+  category?: string;
+  quantity?: string;
+}
+
 const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
+  const initialValues = {
+    name: "",
+    category: "",
+    quantity: 0,
+  };
+
+  const [formData, setFormData] = useState<ProductProps>(initialValues);
+  const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
+
+  const onChangeForm = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const errors = validateCreateProductForm(formData);
+    if (
+      typeof handleSubmit === "function" &&
+      Object.keys(errors).length === 0
+    ) {
+      handleSubmit(e);
+    } else {
+      setFormErrors(errors);
+    }
+  };
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <label htmlFor="name">Name: </label>
         <input
           className="block border-solid border-2 border-black"
           type="text"
           id="name"
+          name="name"
+          onChange={onChangeForm}
         />
 
         <div className="block my-4">
           <label htmlFor="category">Category: </label>
-          <select id="category">
+          <select id="category" name="category" onChange={onChangeForm}>
             <option value={"category1"}>Category 1</option>
             <option value={"category2"}>Category 2</option>
             <option value={"category3"}>Category 3</option>
@@ -25,7 +71,7 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
         </div>
 
         <label htmlFor="quantity">Quantity: </label>
-        <select id="quantity">
+        <select id="quantity" name="quantity" onChange={onChangeForm}>
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>

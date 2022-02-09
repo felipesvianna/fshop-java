@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import CreateProductForm from "./CreateProductForm";
 
-const CreateProductPage = () => {
+const CreateProductPage: FC = () => {
   return (
     <>
       <div>CreateProductPage</div>

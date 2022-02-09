@@ -5,14 +5,32 @@ import CreateProductForm from "./CreateProductForm";
 
 import CreateProductPage from "./CreateProductPage";
 
-async function fillAndSubmitForm() {
+const validInputValues = {
+  name: "new product",
+  category: 2,
+  quantity: 2,
+};
+
+const invalidInputValues = {
+  name: "as",
+  category: 0,
+  quantity: 0,
+};
+
+interface InputValues {
+  name?: string;
+  category?: number;
+  quantity?: number;
+}
+
+async function fillAndSubmitForm(inputValues: InputValues): Promise<void> {
   const nameField = screen.getByLabelText("Name:");
   const categoryField = screen.getByLabelText("Category:");
   const quantityField = screen.getByLabelText("Quantity:");
 
-  fireEvent.click(nameField, { target: { value: "username" } });
-  fireEvent.click(categoryField, { target: { value: 2 } });
-  fireEvent.click(quantityField, { target: { value: 2 } });
+  fireEvent.change(nameField, { target: { value: inputValues.name } });
+  fireEvent.click(categoryField, { target: { value: inputValues.category } });
+  fireEvent.click(quantityField, { target: { value: inputValues.quantity } });
 
   await userEvent.click(screen.getByRole("button", { name: "Save" }));
 }
@@ -32,10 +50,17 @@ describe("CreateProduct page", () => {
     expect(wrapper.contains(<CreateProductForm />)).toBe(true);
   });
 
-  it("should call handleSubmit on button click", async () => {
+  it("should fill form with valid input and call handleSubmit on submit", async () => {
     const handleSubmit = jest.fn((e) => e.preventDefault());
     render(<CreateProductForm handleSubmit={handleSubmit} />);
-    await fillAndSubmitForm();
+    await fillAndSubmitForm(validInputValues);
     expect(handleSubmit).toBeCalled();
+  });
+
+  it("should fill form with invalid input and cant call handleSubmit on submit", async () => {
+    const handleSubmit = jest.fn((e) => e.preventDefault());
+    render(<CreateProductForm handleSubmit={handleSubmit} />);
+    await fillAndSubmitForm(invalidInputValues);
+    expect(handleSubmit).not.toBeCalled();
   });
 });
