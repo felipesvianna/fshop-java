@@ -18,7 +18,7 @@ describe("validate Create Product Form", () => {
     expect(errors).toMatchObject({});
   });
 
-  it("should return error with invalid name", () => {
+  it("should show error message with with invalid name", () => {
     const errors = validateCreateProductForm(invalidInput);
     expect(errors).toMatchObject({ name: "Must be at least 3 characters" });
   });
@@ -34,7 +34,7 @@ describe("validate Create Product Form", () => {
     });
   });
 
-  it("should show error message with invalid quantity", () => {
+  it("should show error message if quantity is zero", () => {
     const errors = validateCreateProductForm({
       name: "new product",
       category: "Category 2",

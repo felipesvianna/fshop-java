@@ -1,8 +1,4 @@
-interface ProductProps {
-  name?: string;
-  category?: string;
-  quantity: number;
-}
+import { ProductProps } from "./CreateProductForm";
 
 const validateCreateProductForm = (productData: ProductProps) => {
   let errors = {};
@@ -15,7 +11,7 @@ const validateCreateProductForm = (productData: ProductProps) => {
     errors = { ...errors, category: "Category is required" };
   }
 
-  if (productData.quantity === 0) {
+  if (!productData.quantity) {
     errors = { ...errors, quantity: "Quantity cant be zero" };
   }
 

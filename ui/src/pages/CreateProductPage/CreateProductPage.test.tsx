@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { shallow, ShallowWrapper } from "enzyme";
 import CreateProductForm from "./CreateProductForm";
+import { ProductProps } from "./CreateProductForm";
 
 import CreateProductPage from "./CreateProductPage";
 
@@ -17,13 +18,7 @@ const invalidInputValues = {
   quantity: 0,
 };
 
-interface InputValues {
-  name?: string;
-  category?: string;
-  quantity?: number;
-}
-
-async function fillAndSubmitForm(inputValues: InputValues): Promise<void> {
+async function fillAndSubmitForm(inputValues: ProductProps): Promise<void> {
   const nameField = screen.getByLabelText("Name:");
   const categoryField = screen.getByLabelText("Category:");
   const quantityField = screen.getByLabelText("Quantity:");

@@ -1,14 +1,14 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import validateCreateProductForm from "./validateCreateProductForm";
 
-interface CreateProductFormProps {
-  handleSubmit?: (e: React.SyntheticEvent) => void;
-}
-
-interface ProductProps {
+export interface ProductProps {
   name?: string;
   category?: string;
   quantity: number;
+}
+
+interface CreateProductFormProps {
+  handleSubmit?: (e: React.SyntheticEvent) => void;
 }
 
 interface FormErrorsProps {
