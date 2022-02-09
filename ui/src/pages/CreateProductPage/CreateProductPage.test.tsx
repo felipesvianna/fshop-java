@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { shallow, ShallowWrapper } from "enzyme";
 import CreateProductForm from "./CreateProductForm";
-import { ProductProps } from "./CreateProductForm";
+import { ProductProps } from "../../components/Product/Product";
 
 import CreateProductPage from "./CreateProductPage";
 

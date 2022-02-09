@@ -1,4 +1,4 @@
-import { ProductProps } from "./CreateProductForm";
+import { ProductProps } from "../../components/Product/Product";
 
 const validateCreateProductForm = (productData: ProductProps) => {
   let errors = {};
