@@ -60,6 +60,9 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
           name="name"
           onChange={onChangeForm}
         />
+        <strong className="text-red-500">
+          {formErrors.name ? formErrors.name : null}
+        </strong>
 
         <div className="block my-4">
           <label htmlFor="category">Category: </label>
@@ -68,14 +71,23 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
             <option value={"category2"}>Category 2</option>
             <option value={"category3"}>Category 3</option>
           </select>
+          <br />
+          <strong className="text-red-500">
+            {formErrors.category ? formErrors.category : null}
+          </strong>
         </div>
 
         <label htmlFor="quantity">Quantity: </label>
-        <select id="quantity" name="quantity" onChange={onChangeForm}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-        </select>
+        <input
+          className="block border-solid border-2 border-black w-24"
+          type="text"
+          id="quantity"
+          name="quantity"
+          onChange={onChangeForm}
+        />
+        <strong className="text-red-500">
+          {formErrors.quantity ? formErrors.quantity : null}
+        </strong>
 
         <button
           className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

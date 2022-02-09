@@ -11,6 +11,14 @@ const validateCreateProductForm = (productData: ProductProps) => {
     errors = { ...errors, name: "Must be at least 3 characters" };
   }
 
+  if (!productData.category) {
+    errors = { ...errors, category: "Category is required" };
+  }
+
+  if (productData.quantity === 0) {
+    errors = { ...errors, quantity: "Quantity cant be zero" };
+  }
+
   return errors;
 };
 

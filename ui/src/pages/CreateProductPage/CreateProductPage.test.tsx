@@ -7,19 +7,19 @@ import CreateProductPage from "./CreateProductPage";
 
 const validInputValues = {
   name: "new product",
-  category: 2,
+  category: "Category 2",
   quantity: 2,
 };
 
 const invalidInputValues = {
   name: "as",
-  category: 0,
+  category: "",
   quantity: 0,
 };
 
 interface InputValues {
   name?: string;
-  category?: number;
+  category?: string;
   quantity?: number;
 }
 
@@ -29,8 +29,15 @@ async function fillAndSubmitForm(inputValues: InputValues): Promise<void> {
   const quantityField = screen.getByLabelText("Quantity:");
 
   fireEvent.change(nameField, { target: { value: inputValues.name } });
-  fireEvent.click(categoryField, { target: { value: inputValues.category } });
-  fireEvent.click(quantityField, { target: { value: inputValues.quantity } });
+
+  if (inputValues.category) {
+    userEvent.selectOptions(
+      categoryField,
+      screen.getByRole("option", { name: inputValues.category })
+    );
+  }
+
+  fireEvent.change(quantityField, { target: { value: inputValues.name } });
 
   await userEvent.click(screen.getByRole("button", { name: "Save" }));
 }
