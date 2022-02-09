@@ -6,6 +6,7 @@ import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ManageProducts from "./pages/ManageProducts/ManageProducts";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
@@ -45,5 +46,14 @@ describe("App component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(CreateProductPage)).toHaveLength(1);
+  });
+
+  it('should show ManageProducts page component for "/admin/manageproducts"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/manageproducts"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(ManageProducts)).toHaveLength(1);
   });
 });

@@ -9,6 +9,6 @@ describe("ManagePage page", () => {
   });
 
   it("should render wihout errors", () => {
-    expect(wrapper.text()).toContain("ManagePage");
+    expect(wrapper.text()).toContain("Manage F-Shop");
   });
 });
