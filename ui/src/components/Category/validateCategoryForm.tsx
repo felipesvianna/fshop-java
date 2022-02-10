@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoryProps } from "../../components/Category/Category";
+import { CategoryProps } from "./Category";
 
 const validateCreateCategoryForm = (categoryData: CategoryProps) => {
   let errors = {};

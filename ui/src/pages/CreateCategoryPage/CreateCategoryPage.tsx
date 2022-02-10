@@ -1,13 +1,12 @@
 import React, { FC } from "react";
-import { CategoryProps } from "../../components/Category/Category";
+import CategoryForm from "../../components/Category/CategoryForm";
 import Header from "../../components/Header/Header";
-import CreateCategoryForm from "./CreateCategoryForm";
 
 const CreateCategoryPage: FC = () => {
   return (
     <>
       <Header pageName="Create category" />
-      <CreateCategoryForm />
+      <CategoryForm />
     </>
   );
 };

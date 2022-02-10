@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mount, ReactWrapper } from "enzyme";
-import CreateProductForm from "./CreateProductForm";
 import { ProductProps } from "../../components/Product/Product";
+import ProductForm from "../../components/Product/ProductForm";
 
 import CreateProductPage from "./CreateProductPage";
 
@@ -51,19 +51,19 @@ describe("CreateProduct page", () => {
   });
 
   it("should contains LoginForm", () => {
-    expect(wrapper.contains(<CreateProductForm />)).toBe(true);
+    expect(wrapper.contains(<ProductForm />)).toBe(true);
   });
 
   it("should fill form with valid input and call handleSubmit on submit", async () => {
     const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<CreateProductForm handleSubmit={handleSubmit} />);
+    render(<ProductForm handleSubmit={handleSubmit} />);
     await fillAndSubmitForm(validInputValues);
     expect(handleSubmit).toBeCalled();
   });
 
   it("should fill form with invalid input and cant call handleSubmit on submit", async () => {
     const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<CreateProductForm handleSubmit={handleSubmit} />);
+    render(<ProductForm handleSubmit={handleSubmit} />);
     await fillAndSubmitForm(invalidInputValues);
     expect(handleSubmit).not.toBeCalled();
   });

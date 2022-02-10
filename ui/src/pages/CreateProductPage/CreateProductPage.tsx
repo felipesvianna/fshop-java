@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import Header from "../../components/Header/Header";
-import CreateProductForm from "./CreateProductForm";
+import ProductForm from "../../components/Product/ProductForm";
 
 const CreateProductPage: FC = () => {
   return (
     <>
       <Header pageName="Create Product" />
-      <CreateProductForm />
+      <ProductForm />
     </>
   );
 };

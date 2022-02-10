@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
-import { CategoryProps } from "../../components/Category/Category";
-import validateCreateCategoryForm from "./validateCreateCategoryForm";
+import { CategoryProps } from "./Category";
+import validateCategoryForm from "./validateCategoryForm";
 
 interface CreateCategoryFormProps {
   handleSubmit?: (e: React.SyntheticEvent) => void;
@@ -29,7 +29,7 @@ const CreateCategoryForm: FC<CreateCategoryFormProps> = ({ handleSubmit }) => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const errors = validateCreateCategoryForm(formData);
+    const errors = validateCategoryForm(formData);
 
     if (typeof handleSubmit === "function" && !errors) {
       handleSubmit(e);

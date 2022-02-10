@@ -1,11 +1,11 @@
 import { shallow, ShallowWrapper } from "enzyme";
-import CreateProductForm from "./CreateProductForm";
+import ProductForm from "./ProductForm";
 
 describe("CreateProductForm component", () => {
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<CreateProductForm />);
+    wrapper = shallow(<ProductForm />);
   });
 
   it("should render a form without errors", () => {

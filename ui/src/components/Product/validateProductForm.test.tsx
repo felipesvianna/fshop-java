@@ -1,4 +1,4 @@
-import validateCreateProductForm from "./validateCreateProductForm";
+import validateProductForm from "./validateProductForm";
 
 describe("validate Create Product Form", () => {
   const validInput = {
@@ -16,12 +16,12 @@ describe("validate Create Product Form", () => {
   };
 
   it("should return false when the form is valid", () => {
-    const errors = validateCreateProductForm(validInput);
+    const errors = validateProductForm(validInput);
     expect(errors).toEqual(false);
   });
 
   it("should show error message with non alphanumeric name", () => {
-    const errors = validateCreateProductForm({
+    const errors = validateProductForm({
       name: "***tew//;",
       category: "2",
       quantity: 2,
@@ -31,7 +31,7 @@ describe("validate Create Product Form", () => {
   });
 
   it("should show error message with invalid inputs", () => {
-    const errors = validateCreateProductForm(invalidInput);
+    const errors = validateProductForm(invalidInput);
     expect(errors).toMatchObject({
       name: "Must have at least 3 characters",
       category: "Category is required",
@@ -40,7 +40,7 @@ describe("validate Create Product Form", () => {
   });
 
   it("should show error message with invalid category", () => {
-    const errors = validateCreateProductForm({
+    const errors = validateProductForm({
       name: "new product",
       category: "",
       quantity: 2,
@@ -52,7 +52,7 @@ describe("validate Create Product Form", () => {
   });
 
   it("should show error message if quantity is zero", () => {
-    const errors = validateCreateProductForm({
+    const errors = validateProductForm({
       name: "new product",
       category: "Category 2",
       quantity: 0,

@@ -1,6 +1,6 @@
-import { ProductProps } from "../../components/Product/Product";
+import { ProductProps } from "./Product";
 
-const validateCreateProductForm = (productData: ProductProps) => {
+const validateProductForm = (productData: ProductProps) => {
   let errors = {};
   const regexNameField = /^[0-9a-zA-Z\s]+$/; //alphanumeric and spaces only
 
@@ -27,4 +27,4 @@ const validateCreateProductForm = (productData: ProductProps) => {
   return errors;
 };
 
-export default validateCreateProductForm;
+export default validateProductForm;

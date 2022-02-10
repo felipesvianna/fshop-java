@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, useState } from "react";
-import validateCreateProductForm from "./validateCreateProductForm";
-import { ProductProps } from "../../components/Product/Product";
+import validateProductForm from "./validateProductForm";
+import { ProductProps } from "./Product";
 
 interface CreateProductFormProps {
   handleSubmit?: (e: React.SyntheticEvent) => void;
@@ -35,7 +35,7 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const errors = validateCreateProductForm(formData);
+    const errors = validateProductForm(formData);
     if (typeof handleSubmit === "function" && !errors) {
       handleSubmit(e);
     } else {
