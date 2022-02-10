@@ -2,6 +2,7 @@ import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
+import CreateCategoryPage from "./pages/CreateCategoryPage/CreateCategoryPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 
 import HomePage from "./pages/HomePage/HomePage";
@@ -65,5 +66,14 @@ describe("App component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(ManageCategories)).toHaveLength(1);
+  });
+
+  it('should show CreateCategory page component for "/admin/createcategory"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/createcategory"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(CreateCategoryPage)).toHaveLength(1);
   });
 });

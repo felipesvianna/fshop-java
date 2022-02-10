@@ -13,12 +13,21 @@ describe("validate Create Product Form", () => {
     quantity: 0,
   };
 
-  it("should return empty object when the form is valid", () => {
+  it("should return false when the form is valid", () => {
     const errors = validateCreateProductForm(validInput);
-    expect(errors).toMatchObject({});
+    expect(errors).toEqual(false);
   });
 
-  it("should show error message with with invalid name", () => {
+  it("should show error message with non alphanumeric name", () => {
+    const errors = validateCreateProductForm({
+      name: "***tew//;",
+      category: "2",
+      quantity: 2,
+    });
+    expect(errors).toMatchObject({ name: "Letters and numbers only" });
+  });
+
+  it("should show error message with invalid name", () => {
     const errors = validateCreateProductForm(invalidInput);
     expect(errors).toMatchObject({ name: "Must be at least 3 characters" });
   });

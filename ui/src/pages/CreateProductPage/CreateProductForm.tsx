@@ -34,10 +34,7 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateCreateProductForm(formData);
-    if (
-      typeof handleSubmit === "function" &&
-      Object.keys(errors).length === 0
-    ) {
+    if (typeof handleSubmit === "function" && !errors) {
       handleSubmit(e);
     } else {
       setFormErrors(errors);

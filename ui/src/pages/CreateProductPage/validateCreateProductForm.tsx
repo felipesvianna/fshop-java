@@ -2,9 +2,14 @@ import { ProductProps } from "../../components/Product/Product";
 
 const validateCreateProductForm = (productData: ProductProps) => {
   let errors = {};
+  const regexNameField = /^[0-9a-zA-Z\s]+$/; //alphanumeric and spaces only
 
   if (!productData.name || productData.name.length < 3) {
     errors = { ...errors, name: "Must be at least 3 characters" };
+  }
+
+  if (productData.name && !productData.name.match(regexNameField)) {
+    errors = { ...errors, name: "Letters and numbers only" };
   }
 
   if (!productData.category) {
@@ -13,6 +18,10 @@ const validateCreateProductForm = (productData: ProductProps) => {
 
   if (!productData.quantity) {
     errors = { ...errors, quantity: "Quantity cant be zero" };
+  }
+
+  if (Object.keys(errors).length === 0) {
+    return false;
   }
 
   return errors;
