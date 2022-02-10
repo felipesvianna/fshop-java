@@ -2,7 +2,8 @@ import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import { CategoryProps } from "./Category";
 import validateCategoryForm from "./validateCategoryForm";
 
-interface CreateCategoryFormProps {
+interface CategoryFormProps {
+  categoryData?: CategoryProps;
   handleSubmit?: (e: React.SyntheticEvent) => void;
 }
 
@@ -10,12 +11,16 @@ interface FormErrorsProps {
   name?: string;
 }
 
-const CreateCategoryForm: FC<CreateCategoryFormProps> = ({ handleSubmit }) => {
-  const initialValues = {
+const CategoryForm: FC<CategoryFormProps> = ({
+  categoryData,
+  handleSubmit,
+}) => {
+  const initialState = {
+    id: 0,
     name: "",
   };
 
-  const [formData, setFormData] = useState<CategoryProps>(initialValues);
+  const [formData, setFormData] = useState<CategoryProps>(initialState);
   const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
 
   const onChangeForm = (
@@ -47,6 +52,7 @@ const CreateCategoryForm: FC<CreateCategoryFormProps> = ({ handleSubmit }) => {
         id="name"
         name="name"
         onChange={onChangeForm}
+        value={categoryData?.name}
       />
       <strong className="text-red-500">
         {formErrors.name ? formErrors.name : null}
@@ -62,4 +68,4 @@ const CreateCategoryForm: FC<CreateCategoryFormProps> = ({ handleSubmit }) => {
   );
 };
 
-export default CreateCategoryForm;
+export default CategoryForm;

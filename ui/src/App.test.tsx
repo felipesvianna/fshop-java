@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import CreateCategoryPage from "./pages/CreateCategoryPage/CreateCategoryPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
+import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -75,5 +76,14 @@ describe("App component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(CreateCategoryPage)).toHaveLength(1);
+  });
+
+  it('should show EditCategory page component for "/admin/editcategory"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/editcategory/:idCategory"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(EditCategoryPage)).toHaveLength(1);
   });
 });

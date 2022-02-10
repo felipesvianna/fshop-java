@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CreateCategoryPage from "./pages/CreateCategoryPage/CreateCategoryPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
+import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
@@ -30,6 +31,10 @@ function App() {
       <Route
         path="/admin/createcategory"
         element={<PrivateRoute component={CreateCategoryPage} />}
+      />
+      <Route
+        path="/admin/editcategory/:idCategory"
+        element={<PrivateRoute component={EditCategoryPage} />}
       />
     </Routes>
   );

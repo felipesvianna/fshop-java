@@ -16,7 +16,7 @@ describe("ManageCategories page", () => {
   });
 
   it("should show Create category link", () => {
-    const link = wrapper.find("Link");
+    const link = wrapper.find("Link").first();
     expect(link.text()).toEqual("Create category");
     expect(link.prop("to")).toEqual("/admin/createcategory");
   });

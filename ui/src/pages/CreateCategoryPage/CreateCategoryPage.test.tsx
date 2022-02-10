@@ -9,10 +9,12 @@ describe("CreateCategory page", () => {
   let wrapper: ReactWrapper;
 
   const validInputValue = {
+    id: 1,
     name: "new category",
   };
 
   const invalidInputValue = {
+    id: 1,
     name: "ne",
   };
 

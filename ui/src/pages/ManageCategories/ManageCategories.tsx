@@ -7,12 +7,15 @@ import { LinkButtonProps } from "../../components/LinkButton/LinkButton";
 const ManageCategories: FC = () => {
   const storedCategories = [
     {
+      id: 1,
       name: "Home and Kitchen",
     },
     {
+      id: 2,
       name: "Sports",
     },
     {
+      id: 3,
       name: "Automotive",
     },
   ];

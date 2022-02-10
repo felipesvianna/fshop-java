@@ -9,4 +9,13 @@ describe("CreateCategoryForm component", () => {
     expect(wrapper.find('input[id="name"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Save");
   });
+
+  it("should render a form with values when initial values are populated", () => {
+    wrapper = shallow(
+      <CategoryForm categoryData={{ id: 1, name: "new category" }} />
+    );
+    expect(wrapper.find('input[id="name"]').get(0).props.value).toEqual(
+      "new category"
+    );
+  });
 });

@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 import validateProductForm from "./validateProductForm";
 import { ProductProps } from "./Product";
 
-interface CreateProductFormProps {
+interface ProductFormProps {
   handleSubmit?: (e: React.SyntheticEvent) => void;
 }
 
@@ -13,7 +13,7 @@ interface FormErrorsProps {
   price?: string;
 }
 
-const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
+const ProductForm: FC<ProductFormProps> = ({ handleSubmit }) => {
   const initialValues = {
     name: "",
     category: "",
@@ -103,4 +103,4 @@ const CreateProductForm: FC<CreateProductFormProps> = ({ handleSubmit }) => {
   );
 };
 
-export default CreateProductForm;
+export default ProductForm;
