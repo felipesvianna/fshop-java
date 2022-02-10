@@ -1,14 +1,23 @@
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
+import ProductsList from "../../components/ProductsList/ProductsList";
 import ManageProducts from "./ManageProducts";
 
 describe("ManageProducts page", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
 
-  beforeEach(() => {
-    wrapper = shallow(<ManageProducts />);
+  it("should contains ProductsList component", () => {
+    wrapper = mount(
+      <MemoryRouter>
+        <ManageProducts />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find(ProductsList)).toHaveLength(1);
   });
 
   it("should render wihout errors", () => {
+    wrapper = shallow(<ManageProducts />);
     expect(wrapper.text()).toContain("Manage Products");
   });
 });

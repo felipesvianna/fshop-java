@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import { shallow, ShallowWrapper } from "enzyme";
 import CreateProductForm from "./CreateProductForm";
 
