@@ -10,12 +10,14 @@ const validInputValues = {
   name: "new product",
   category: "Category 2",
   quantity: 2,
+  price: 5.99,
 };
 
 const invalidInputValues = {
   name: "as",
   category: "",
   quantity: 0,
+  price: 0,
 };
 
 async function fillAndSubmitForm(inputValues: ProductProps): Promise<void> {

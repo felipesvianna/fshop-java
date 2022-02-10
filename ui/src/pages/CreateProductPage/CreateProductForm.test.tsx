@@ -12,6 +12,7 @@ describe("CreateProductForm component", () => {
     expect(wrapper.find('input[id="name"]').exists()).toEqual(true);
     expect(wrapper.find('select[id="category"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="quantity"]').exists()).toEqual(true);
+    expect(wrapper.find('input[id="price"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Save");
   });
 });

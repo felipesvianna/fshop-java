@@ -9,16 +9,19 @@ describe("ProductsList component", () => {
       name: "Monitor",
       category: "Computers",
       quantity: 5,
+      price: 2000.99,
     },
     {
       name: "Headphones",
       category: "Eletronics",
       quantity: 10,
+      price: 499.99,
     },
     {
       name: "Shelf",
       category: "Home & Kitchen",
       quantity: 2,
+      price: 120.99,
     },
   ];
 

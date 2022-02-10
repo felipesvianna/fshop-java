@@ -23,6 +23,7 @@ const ProductsList: FC<ProductsListProps> = ({
           <th className="text-sm font-medium text-gray-900 px-6 py-4">
             Quantity
           </th>
+          <th className="text-sm font-medium text-gray-900 px-6 py-4">Price</th>
         </tr>
       </thead>
       <tbody>
