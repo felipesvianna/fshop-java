@@ -16,7 +16,7 @@ describe("validate Create Category Form", () => {
 
   it("should show error message with invalid name", () => {
     const errors = validateCreateCategoryForm(invalidInput);
-    expect(errors).toMatchObject({ name: "Must be at least 3 characters" });
+    expect(errors).toMatchObject({ name: "Must have at least 3 characters" });
   });
 
   it("should return false when the form is valid", () => {

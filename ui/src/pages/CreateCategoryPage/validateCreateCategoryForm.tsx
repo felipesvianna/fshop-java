@@ -6,7 +6,7 @@ const validateCreateCategoryForm = (categoryData: CategoryProps) => {
   const regexNameField = /^[0-9a-zA-Z\s]+$/; //alphanumeric and spaces only
 
   if (!categoryData.name || categoryData.name.length < 3) {
-    errors = { name: "Must be at least 3 characters" };
+    errors = { name: "Must have at least 3 characters" };
   }
 
   if (!categoryData.name.match(regexNameField)) {

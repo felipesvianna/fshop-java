@@ -4,7 +4,7 @@ import { shallow, ShallowWrapper } from "enzyme";
 import LoginForm from "./LoginForm";
 import LoginPage from "./LoginPage";
 
-async function fillAndSubmitLoginForm() {
+async function fillAndSubmitLoginForm(): Promise<void> {
   const usernameField = screen.getByLabelText("Username:");
   const passwordField = screen.getByLabelText("Password:");
 

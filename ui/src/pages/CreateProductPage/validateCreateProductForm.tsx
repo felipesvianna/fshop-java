@@ -5,7 +5,7 @@ const validateCreateProductForm = (productData: ProductProps) => {
   const regexNameField = /^[0-9a-zA-Z\s]+$/; //alphanumeric and spaces only
 
   if (!productData.name || productData.name.length < 3) {
-    errors = { ...errors, name: "Must be at least 3 characters" };
+    errors = { ...errors, name: "Must have at least 3 characters" };
   }
 
   if (productData.name && !productData.name.match(regexNameField)) {
