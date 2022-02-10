@@ -6,6 +6,7 @@ import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 
 describe("App component", () => {
@@ -55,5 +56,14 @@ describe("App component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(ManageProducts)).toHaveLength(1);
+  });
+
+  it('should show ManageCategories page component for "/admin/managecategories"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/managecategories"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(ManageCategories)).toHaveLength(1);
   });
 });

@@ -4,6 +4,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManagePage from "./pages/ManagePage/ManagePage";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 
@@ -20,6 +21,10 @@ function App() {
       <Route
         path="/admin/manageproducts"
         element={<PrivateRoute component={ManageProducts} />}
+      />
+      <Route
+        path="/admin/managecategories"
+        element={<PrivateRoute component={ManageCategories} />}
       />
     </Routes>
   );

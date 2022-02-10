@@ -1,4 +1,4 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import ProductsList from "../../components/ProductsList/ProductsList";
 import ManageProducts from "./ManageProducts";
@@ -6,18 +6,32 @@ import ManageProducts from "./ManageProducts";
 describe("ManageProducts page", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
 
-  it("should contains ProductsList component", () => {
+  beforeEach(() => {
     wrapper = mount(
       <MemoryRouter>
         <ManageProducts />
       </MemoryRouter>
     );
+  });
 
+  it("should render list of links on header", () => {
+    const listOfLinks = [
+      { routeName: "/admin/createproduct", pageName: "Create product" },
+      { routeName: "/admin/managecategories", pageName: "Manage categories" },
+    ];
+
+    const links = wrapper.find("Link");
+    links.forEach((node, index) => {
+      expect(node.text()).toEqual(listOfLinks[index].pageName);
+      expect(node.prop("to")).toEqual(listOfLinks[index].routeName);
+    });
+  });
+
+  it("should contains ProductsList component", () => {
     expect(wrapper.find(ProductsList)).toHaveLength(1);
   });
 
   it("should render wihout errors", () => {
-    wrapper = shallow(<ManageProducts />);
     expect(wrapper.text()).toContain("Manage Products");
   });
 });
