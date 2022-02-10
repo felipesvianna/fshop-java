@@ -7,12 +7,10 @@ export type ProductProps = {
 
 const Product: FC<ProductProps> = (productData) => {
   return (
-    <tr>
-      <td>
-        <span id="product-name">{productData.name}</span>
-        <span id="product-category">{productData.category}</span>
-        <span id="product-quantity">{productData.quantity}</span>
-      </td>
+    <tr className="bg-white border-b">
+      <td className="px-6 py-4 whitespace-nowrap">{productData.name}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{productData.category}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{productData.quantity}</td>
     </tr>
   );
 };

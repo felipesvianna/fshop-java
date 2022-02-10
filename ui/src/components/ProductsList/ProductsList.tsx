@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ProductProps } from "../Product/Product";
+import Product, { ProductProps } from "../Product/Product";
 
 interface ProductsListProps {
   listOfProducts?: ProductProps[];
@@ -26,18 +26,8 @@ const ProductsList: FC<ProductsListProps> = ({
         </tr>
       </thead>
       <tbody>
-        {listOfProducts.map((product) => {
-          return (
-            <tr className="bg-white border-b" key={product.quantity}>
-              <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {product.category}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {product.quantity}
-              </td>
-            </tr>
-          );
+        {listOfProducts.map((product, index) => {
+          return <Product key={index} {...product} />;
         })}
       </tbody>
     </table>

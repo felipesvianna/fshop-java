@@ -33,7 +33,7 @@ describe("ProductsList component", () => {
     expect(wrapper.find({ id: "products-list" })).toHaveLength(1);
   });
 
-  it("should not render a table if listOfProducts is empty", () => {
+  it("should show message if listOfProducts is empty", () => {
     wrapper = shallow(<ProductsList listOfProducts={[]} />);
     expect(wrapper.text()).toContain("There is no products.");
   });

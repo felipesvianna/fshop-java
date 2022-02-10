@@ -10,13 +10,10 @@ describe("Product component", () => {
     quantity: 5,
   };
 
-  beforeEach(() => {
-    wrapper = shallow(<Product {...testProductInstance} />);
-  });
-
   it("should render without errors", () => {
-    expect(wrapper.find({ id: "product-name" })).toHaveLength(1);
-    expect(wrapper.find({ id: "product-category" })).toHaveLength(1);
-    expect(wrapper.find({ id: "product-quantity" })).toHaveLength(1);
+    wrapper = shallow(<Product {...testProductInstance} />);
+    expect(wrapper.text()).toContain("Monitor");
+    expect(wrapper.text()).toContain("Computers");
+    expect(wrapper.text()).toContain("5");
   });
 });
