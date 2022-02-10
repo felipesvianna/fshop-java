@@ -1,6 +1,7 @@
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import CategoryList from "../../components/CategoryList/CategoryList";
+import Header from "../../components/Header/Header";
 import ManageCategories from "./ManageCategories";
 
 describe("ManageCategories page", () => {
@@ -18,6 +19,10 @@ describe("ManageCategories page", () => {
     const link = wrapper.find("Link");
     expect(link.text()).toEqual("Create category");
     expect(link.prop("to")).toEqual("/admin/createcategory");
+  });
+
+  it("should contains Header component", () => {
+    expect(wrapper.find(Header)).toHaveLength(1);
   });
 
   it("should contains ProductsList component", () => {

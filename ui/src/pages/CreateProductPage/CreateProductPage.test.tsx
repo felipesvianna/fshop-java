@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import CreateProductForm from "./CreateProductForm";
 import { ProductProps } from "../../components/Product/Product";
 
@@ -38,14 +38,14 @@ async function fillAndSubmitForm(inputValues: ProductProps): Promise<void> {
 }
 
 describe("CreateProduct page", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<CreateProductPage />);
+    wrapper = mount(<CreateProductPage />);
   });
 
   it("should render without errors", () => {
-    expect(wrapper.text()).toContain("CreateProductPage");
+    expect(wrapper.text()).toContain("Create Product");
   });
 
   it("should contains LoginForm", () => {

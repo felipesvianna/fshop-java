@@ -1,12 +1,22 @@
-import { shallow, ShallowWrapper } from "enzyme";
-import ProductsList from "../../components/ProductsList/ProductsList";
+import { mount, ReactWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import ManagePage from "./ManagePage";
 
 describe("ManagePage page", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<ManagePage />);
+    wrapper = mount(
+      <MemoryRouter>
+        <ManagePage />
+      </MemoryRouter>
+    );
+  });
+
+  it("should show Manage products link", () => {
+    const link = wrapper.find("Link");
+    expect(link.text()).toEqual("Manage products");
+    expect(link.prop("to")).toEqual("/admin/manageproducts");
   });
 
   it("should render wihout errors", () => {
