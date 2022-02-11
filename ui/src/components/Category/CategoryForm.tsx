@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { CategoryProps } from "./Category";
 import validateCategoryForm from "./validateCategoryForm";
 
@@ -23,6 +23,12 @@ const CategoryForm: FC<CategoryFormProps> = ({
   const [formData, setFormData] = useState<CategoryProps>(initialState);
   const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
 
+  useEffect(() => {
+    if (categoryData) {
+      setFormData({ id: 1, name: "Computer" });
+    }
+  }, []);
+
   const onChangeForm = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -44,27 +50,40 @@ const CategoryForm: FC<CategoryFormProps> = ({
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="name">Name: </label>
-      <input
-        className="block border-solid border-2 border-black"
-        type="text"
-        id="name"
-        name="name"
-        onChange={onChangeForm}
-        value={categoryData?.name}
-      />
-      <strong className="text-red-500">
-        {formErrors.name ? formErrors.name : null}
-      </strong>
+    <>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="name">Name: </label>
+        <input
+          className="block border-solid border-2 border-black"
+          type="text"
+          id="name"
+          name="name"
+          onChange={onChangeForm}
+          value={formData.name}
+        />
+        <strong className="text-red-500">
+          {formErrors.name ? formErrors.name : null}
+        </strong>
 
-      <button
-        className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        type="submit"
-      >
-        Save
-      </button>
-    </form>
+        <div className="flex justify-start">
+          <button
+            className="block mt-4 mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Save
+          </button>
+          {categoryData ? (
+            <button
+              name="deleteButton"
+              type="button"
+              className="block mt-4 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Delete
+            </button>
+          ) : null}
+        </div>
+      </form>
+    </>
   );
 };
 

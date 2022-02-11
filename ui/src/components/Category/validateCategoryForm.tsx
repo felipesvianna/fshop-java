@@ -9,7 +9,7 @@ const validateCreateCategoryForm = (categoryData: CategoryProps) => {
     errors = { name: "Must have at least 3 characters" };
   }
 
-  if (!categoryData.name.match(regexNameField)) {
+  if (categoryData.name && !categoryData.name.match(regexNameField)) {
     errors = { name: "Letters and numbers only" };
   }
 
