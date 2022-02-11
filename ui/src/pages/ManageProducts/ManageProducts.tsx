@@ -7,18 +7,21 @@ import ProductsList from "../../components/ProductsList/ProductsList";
 const ManageProducts: FC = () => {
   const storedProducts = [
     {
+      id: 1,
       name: "Monitor",
       category: "Computers",
       quantity: 5,
       price: 2000.99,
     },
     {
+      id: 2,
       name: "Headphones",
       category: "Eletronics",
       quantity: 10,
       price: 489.99,
     },
     {
+      id: 3,
       name: "Shelf",
       category: "Home & Kitchen",
       quantity: 2,

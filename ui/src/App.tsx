@@ -4,6 +4,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CreateCategoryPage from "./pages/CreateCategoryPage/CreateCategoryPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
+import EditProductPage from "./pages/EditProductPage/EditProductPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
@@ -35,6 +36,10 @@ function App() {
       <Route
         path="/admin/editcategory/:idCategory"
         element={<PrivateRoute component={EditCategoryPage} />}
+      />
+      <Route
+        path="/admin/editproduct/:idProduct"
+        element={<PrivateRoute component={EditProductPage} />}
       />
     </Routes>
   );

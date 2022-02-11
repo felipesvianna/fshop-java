@@ -1,4 +1,4 @@
-import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+import { CommonWrapper, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import ProductsList from "../../components/ProductsList/ProductsList";
 import ManageProducts from "./ManageProducts";
@@ -20,8 +20,15 @@ describe("ManageProducts page", () => {
       { routeName: "/admin/managecategories", pageName: "Manage categories" },
     ];
 
+    let nodes: CommonWrapper[] = [];
+
     const links = wrapper.find("Link");
-    links.forEach((node, index) => {
+    for (let i = 0; i < 2; i++) {
+      // get first 2 header children links
+      nodes.push(links.at(i));
+    }
+
+    nodes.forEach((node, index) => {
       expect(node.text()).toEqual(listOfLinks[index].pageName);
       expect(node.prop("to")).toEqual(listOfLinks[index].routeName);
     });

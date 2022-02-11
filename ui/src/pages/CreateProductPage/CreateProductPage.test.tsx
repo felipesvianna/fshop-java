@@ -7,6 +7,7 @@ import ProductForm from "../../components/Product/ProductForm";
 import CreateProductPage from "./CreateProductPage";
 
 const validInputValues = {
+  id: 1,
   name: "new product",
   category: "Category 2",
   quantity: 2,
@@ -14,6 +15,7 @@ const validInputValues = {
 };
 
 const invalidInputValues = {
+  id: 1,
   name: "as",
   category: "",
   quantity: 0,

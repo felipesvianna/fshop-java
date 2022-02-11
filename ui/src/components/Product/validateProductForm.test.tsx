@@ -2,6 +2,7 @@ import validateProductForm from "./validateProductForm";
 
 describe("validate Create Product Form", () => {
   const validInput = {
+    id: 1,
     name: "new product",
     category: "category 1",
     quantity: 2,
@@ -9,6 +10,7 @@ describe("validate Create Product Form", () => {
   };
 
   const invalidInput = {
+    id: 1,
     name: "ne",
     category: "",
     quantity: 0,
@@ -22,6 +24,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message with non alphanumeric name", () => {
     const errors = validateProductForm({
+      id: 1,
       name: "***tew//;",
       category: "2",
       quantity: 2,
@@ -41,6 +44,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message with invalid category", () => {
     const errors = validateProductForm({
+      id: 1,
       name: "new product",
       category: "",
       quantity: 2,
@@ -53,6 +57,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message if quantity is zero", () => {
     const errors = validateProductForm({
+      id: 1,
       name: "new product",
       category: "Category 2",
       quantity: 0,

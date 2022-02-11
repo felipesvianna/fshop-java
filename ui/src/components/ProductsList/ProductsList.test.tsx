@@ -1,4 +1,5 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import ProductsList from "./ProductsList";
 
 describe("ProductsList component", () => {
@@ -6,18 +7,21 @@ describe("ProductsList component", () => {
 
   const testProductsList = [
     {
+      id: 1,
       name: "Monitor",
       category: "Computers",
       quantity: 5,
       price: 2000.99,
     },
     {
+      id: 2,
       name: "Headphones",
       category: "Eletronics",
       quantity: 10,
       price: 499.99,
     },
     {
+      id: 3,
       name: "Shelf",
       category: "Home & Kitchen",
       quantity: 2,
@@ -26,7 +30,11 @@ describe("ProductsList component", () => {
   ];
 
   it("should fill table with products", () => {
-    wrapper = mount(<ProductsList listOfProducts={testProductsList} />);
+    wrapper = mount(
+      <MemoryRouter>
+        <ProductsList listOfProducts={testProductsList} />
+      </MemoryRouter>
+    );
     const rows = wrapper.find("tr");
     expect(rows).toHaveLength(3 + 1); // 1 is for table
   });

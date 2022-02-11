@@ -5,6 +5,7 @@ import App from "./App";
 import CreateCategoryPage from "./pages/CreateCategoryPage/CreateCategoryPage";
 import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
+import EditProductPage from "./pages/EditProductPage/EditProductPage";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -78,12 +79,21 @@ describe("App component", () => {
     expect(wrapper.find(CreateCategoryPage)).toHaveLength(1);
   });
 
-  it('should show EditCategory page component for "/admin/editcategory"', () => {
+  it('should show EditCategory page component for "/admin/editcategory/:idCategory"', () => {
     wrapper = mount(
       <MemoryRouter initialEntries={["/admin/editcategory/:idCategory"]}>
         <App />
       </MemoryRouter>
     );
     expect(wrapper.find(EditCategoryPage)).toHaveLength(1);
+  });
+
+  it('should show EditProduct page component for "/admin/editproduct/:idProduct"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/admin/editproduct/:idProduct"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(EditProductPage)).toHaveLength(1);
   });
 });

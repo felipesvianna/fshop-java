@@ -25,7 +25,7 @@ const CategoryForm: FC<CategoryFormProps> = ({
 
   useEffect(() => {
     if (categoryData) {
-      setFormData({ id: 1, name: "Computer" });
+      setFormData(categoryData);
     }
   }, []);
 
