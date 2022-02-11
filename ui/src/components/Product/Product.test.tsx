@@ -8,6 +8,7 @@ describe("Product component", () => {
   const testProductInstance = {
     id: 1,
     name: "Monitor",
+    details: '32" Class QHD (2560 x 1440) IPS Display (31.5" Screen Size)',
     category: "Computers",
     quantity: 5,
     price: 2000.57,

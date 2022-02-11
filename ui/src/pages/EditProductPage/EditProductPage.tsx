@@ -18,6 +18,7 @@ const EditProductPage: FC = () => {
   const hardcodedProductInstance = {
     id: 1,
     name: "Monitor",
+    details: '32" Class QHD (2560 x 1440) IPS Display (31.5" Screen Size)',
     category: "category3",
     quantity: 5,
     price: 2000.57,

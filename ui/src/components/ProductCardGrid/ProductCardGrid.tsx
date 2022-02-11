@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import ProductCard, { ProductCardProps } from "../ProductCard/ProductCard";
 
 interface ProductCardGridProps {
@@ -11,7 +12,9 @@ const ProductCardGrid: FC<ProductCardGridProps> = ({ cardsList }) => {
       <div className="grid grid-cols-4 gap-4">
         {cardsList.map((card, index) => {
           return (
-            <ProductCard key={index} name={card.name} price={card.price} />
+            <Link key={index} to={"/productdetails/" + card.id}>
+              <ProductCard key={index} name={card.name} price={card.price} />
+            </Link>
           );
         })}
       </div>

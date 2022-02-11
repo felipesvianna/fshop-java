@@ -8,6 +8,7 @@ describe("ProductForm component", () => {
     id: 1,
     name: "Monitor",
     category: "Computers",
+    details: '32" Class QHD (2560 x 1440) IPS Display (31.5" Screen Size)',
     quantity: 5,
     price: 2000.57,
   };
@@ -41,6 +42,7 @@ describe("ProductForm component", () => {
     expect(wrapper.find('input[id="name"]').exists()).toEqual(true);
     expect(wrapper.find('select[id="category"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="quantity"]').exists()).toEqual(true);
+    expect(wrapper.find('textarea[id="details"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="price"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Save");
   });

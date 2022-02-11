@@ -9,6 +9,7 @@ import CreateProductPage from "./CreateProductPage";
 const validInputValues = {
   id: 1,
   name: "new product",
+  details: "new product at the store",
   category: "Category 2",
   quantity: 2,
   price: 5.99,
@@ -17,6 +18,7 @@ const validInputValues = {
 const invalidInputValues = {
   id: 1,
   name: "as",
+  details: "little",
   category: "",
   quantity: 0,
   price: 0,

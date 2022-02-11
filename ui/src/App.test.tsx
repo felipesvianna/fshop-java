@@ -11,9 +11,19 @@ import HomePage from "./pages/HomePage/HomePage";
 import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
+
+  it('should show ProductDetails component for "/productdetails/:idProduct"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/productdetails/:idProduct"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(ProductDetails)).toHaveLength(1);
+  });
 
   it('should show LoginPage component for "/admin"', () => {
     wrapper = mount(

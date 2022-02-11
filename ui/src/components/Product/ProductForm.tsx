@@ -10,6 +10,7 @@ interface ProductFormProps {
 interface FormErrorsProps {
   name?: string;
   category?: string;
+  details?: string;
   quantity?: string;
   price?: string;
 }
@@ -18,6 +19,7 @@ const ProductForm: FC<ProductFormProps> = ({ productData, handleSubmit }) => {
   const initialValues = {
     id: 0,
     name: "",
+    details: "",
     category: "",
     quantity: 0,
     price: 0,
@@ -33,7 +35,7 @@ const ProductForm: FC<ProductFormProps> = ({ productData, handleSubmit }) => {
   }, []);
 
   const onChangeForm = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setFormData({
       ...formData,
@@ -96,6 +98,25 @@ const ProductForm: FC<ProductFormProps> = ({ productData, handleSubmit }) => {
         />
         <strong className="text-red-500">
           {formErrors.quantity ? formErrors.quantity : null}
+        </strong>
+
+        <div className="block my-4">
+          <label htmlFor="name">Details: </label>
+          <textarea
+            className="resize-x rounded-md border border-solid border-black w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal"
+            id="details"
+            name="details"
+            onChange={onChangeForm}
+            value={formData.details}
+          ></textarea>
+        </div>
+
+        <strong className="text-red-500">
+          {formErrors.name ? formErrors.name : null}
         </strong>
 
         <div className="block my-4">

@@ -7,5 +7,6 @@ describe("ProductCard component", () => {
   it("should render without errors when receive name and price props", () => {
     wrapper = shallow(<ProductCard name={"Monitor"} price={2000.57} />);
     expect(wrapper.text()).toContain("Monitor");
+    expect(wrapper.text()).toContain("2000.57");
   });
 });

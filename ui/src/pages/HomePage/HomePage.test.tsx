@@ -1,4 +1,5 @@
-import { mount, ReactWrapper, shallow } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ProductCardGrid from "../../components/ProductCardGrid/ProductCardGrid";
 import HomePage from "./HomePage";
@@ -7,7 +8,11 @@ describe("LoginPage page", () => {
   let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = mount(<HomePage />);
+    wrapper = mount(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
   });
 
   it("should contains ProductCardGrid component", () => {
