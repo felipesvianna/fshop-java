@@ -6,7 +6,7 @@ import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
 import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
 import EditProductPage from "./pages/EditProductPage/EditProductPage";
 import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManagePage from "./pages/ManagePage/ManagePage";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
@@ -15,7 +15,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/admin" element={<LoginPage />} />
+      <Route path="/admin" element={<AdminLoginPage />} />
       <Route path="/admin/createproduct" element={<CreateProductPage />} />
       <Route
         path="/admin/manage"

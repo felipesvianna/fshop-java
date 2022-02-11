@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import { FC } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "../../pages/LoginPage/LoginPage";
+import AdminLoginPage from "../../pages/AdminLoginPage/AdminLoginPage";
 import PrivateRoute from "./PrivateRoute";
 
 type ComponentMockProps = {
@@ -21,12 +21,12 @@ describe("PrivateRoute component", () => {
             path="/private"
             element={<PrivateRoute component={ComponentMock} />}
           />
-          <Route path="/admin" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminLoginPage />} />
         </Routes>
       </MemoryRouter>
     );
 
     //expect(wrapper.find(LoginPage)).toHaveLength(1);
-    expect(wrapper.find(LoginPage)).toHaveLength(0);
+    expect(wrapper.find(AdminLoginPage)).toHaveLength(0);
   });
 });

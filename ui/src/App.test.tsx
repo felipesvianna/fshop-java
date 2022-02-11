@@ -8,7 +8,7 @@ import EditCategoryPage from "./pages/EditCategoryPage/EditCategoryPage";
 import EditProductPage from "./pages/EditProductPage/EditProductPage";
 
 import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 
@@ -21,7 +21,7 @@ describe("App component", () => {
         <App />
       </MemoryRouter>
     );
-    expect(wrapper.find(LoginPage)).toHaveLength(1);
+    expect(wrapper.find(AdminLoginPage)).toHaveLength(1);
   });
 
   it('should show HomePage component for "/"', () => {
@@ -40,7 +40,7 @@ describe("App component", () => {
       </MemoryRouter>
     );
     //expect(wrapper.find(LoginPage)).toHaveLength(1);
-    expect(wrapper.find(LoginPage)).toHaveLength(0);
+    expect(wrapper.find(AdminLoginPage)).toHaveLength(0);
   });
 
   it('should show CreateProductPage component for "/admin/createproduct"', () => {

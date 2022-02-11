@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import LoginForm from "./LoginForm";
-import LoginPage from "./LoginPage";
+import LoginForm from "../../components/LoginForm/LoginForm";
+import AdminLoginPage from "./AdminLoginPage";
 
 async function fillAndSubmitLoginForm(): Promise<void> {
   const usernameField = screen.getByLabelText("Username:");
@@ -22,7 +22,7 @@ describe("LoginPage page", () => {
   beforeEach(() => {
     wrapper = mount(
       <MemoryRouter>
-        <LoginPage />
+        <AdminLoginPage />
       </MemoryRouter>
     );
   });

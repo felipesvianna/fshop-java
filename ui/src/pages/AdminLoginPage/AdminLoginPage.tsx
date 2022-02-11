@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Header from "../../components/Header/Header";
-import LoginForm from "./LoginForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 
-const LoginPage: FC = () => {
+const AdminLoginPage: FC = () => {
   return (
     <>
       <Header pageName="Login" />
@@ -11,4 +11,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;
