@@ -12,9 +12,19 @@ import AdminLoginPage from "./pages/AdminLoginPage/AdminLoginPage";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
+
+  it('should show ProductDetails component for "/userregister"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/userregister"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(UserRegisterPage)).toHaveLength(1);
+  });
 
   it('should show ProductDetails component for "/productdetails/:idProduct"', () => {
     wrapper = mount(

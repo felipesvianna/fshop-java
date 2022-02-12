@@ -11,6 +11,7 @@ import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManagePage from "./pages/ManagePage/ManagePage";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/admin" element={<AdminLoginPage />} />
       <Route path="/admin/createproduct" element={<CreateProductPage />} />
+      <Route path="/userregister" element={<UserRegisterPage />} />
       <Route path="/productdetails/:idProduct" element={<ProductDetails />} />
       <Route
         path="/admin/manage"

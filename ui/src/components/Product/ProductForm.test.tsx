@@ -13,7 +13,7 @@ describe("ProductForm component", () => {
     price: 2000.57,
   };
 
-  it("should fill form fields with product data if has categoryData", () => {
+  it("should fill form fields with product data if has productData", () => {
     wrapper = mount(<ProductForm productData={productInstance} />);
     expect(wrapper.find('input[id="name"]').get(0).props.value).toEqual(
       "Monitor"
@@ -27,12 +27,12 @@ describe("ProductForm component", () => {
     );
   });
 
-  it("should not show link to delete category if has no productData", () => {
+  it("should not show link to delete product if has no productData", () => {
     wrapper = shallow(<ProductForm />);
     expect(wrapper.find({ name: "deleteButton" }).exists()).toBe(false);
   });
 
-  it("should show link to delete category if has categoryData", () => {
+  it("should show link to delete category if has productData", () => {
     wrapper = shallow(<ProductForm productData={productInstance} />);
     expect(wrapper.find({ name: "deleteButton" }).text()).toEqual("Delete");
   });
