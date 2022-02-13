@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import Product, { ProductProps } from "../Product/Product";
+import { ProductProps } from "../../interfaces";
+import Product from "../Product/Product";
 
 interface ProductsListProps {
   listOfProducts?: ProductProps[];

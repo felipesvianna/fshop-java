@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import ProductCard, { ProductCardProps } from "../ProductCard/ProductCard";
+import { ProductCardProps } from "../../interfaces";
+import ProductCard from "../ProductCard/ProductCard";
 
 interface ProductCardGridProps {
   cardsList: ProductCardProps[];

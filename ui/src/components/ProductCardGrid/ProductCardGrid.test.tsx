@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
-import { ProductCardProps } from "../ProductCard/ProductCard";
+import { ProductCardProps } from "../../interfaces";
 import ProductCardGrid from "./ProductCardGrid";
 
 describe("ProductCardGrid component", () => {

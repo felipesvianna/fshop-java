@@ -1,13 +1,7 @@
 import React from "react";
-interface UserDataProps {
-  firstName?: string;
-  lastName: string;
-  address?: string;
-  username?: string;
-  password?: string;
-}
+import { UserProps } from "../../interfaces";
 
-const validateUserRegisterForm = (userData: UserDataProps) => {
+const validateUserRegisterForm = (userData: UserProps) => {
   let errors = {};
 
   if (!userData.firstName || userData.firstName.length <= 3) {

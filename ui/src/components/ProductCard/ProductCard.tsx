@@ -1,9 +1,6 @@
 import React, { FC } from "react";
-export interface ProductCardProps {
-  id?: number;
-  name: string;
-  price: number;
-}
+import { ProductCardProps } from "../../interfaces";
+
 const ProductCard: FC<ProductCardProps> = ({ name, price }) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">

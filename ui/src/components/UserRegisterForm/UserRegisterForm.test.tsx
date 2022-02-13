@@ -4,8 +4,6 @@ import UserRegisterForm from "./UserRegisterForm";
 describe("UserRegisterForm component", () => {
   let wrapper: ShallowWrapper;
 
-  // TODO: Implement fill and submit function
-
   it("should render a form without errors", () => {
     wrapper = shallow(<UserRegisterForm />);
     expect(wrapper.find('input[id="firstname"]').exists()).toEqual(true);

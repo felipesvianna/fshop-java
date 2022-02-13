@@ -1,13 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-export type ProductProps = {
-  id: number;
-  name?: string;
-  category?: string;
-  details: string;
-  quantity: number;
-  price: number;
-};
+import { ProductProps } from "../../interfaces";
 
 const Product: FC<ProductProps> = (productData) => {
   return (

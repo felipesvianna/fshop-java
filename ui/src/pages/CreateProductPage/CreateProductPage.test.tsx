@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mount, ReactWrapper } from "enzyme";
-import { ProductProps } from "../../components/Product/Product";
 import ProductForm from "../../components/Product/ProductForm";
+import { ProductProps } from "../../interfaces";
 
 import CreateProductPage from "./CreateProductPage";
 

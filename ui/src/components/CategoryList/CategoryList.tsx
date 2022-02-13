@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import Category, { CategoryProps } from "../Category/Category";
+import { CategoryProps } from "../../interfaces";
+import Category from "../Category/Category";
 
 interface CategoryListProps {
   listOfCategories?: CategoryProps[];

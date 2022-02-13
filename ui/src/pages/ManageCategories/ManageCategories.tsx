@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
-import { CategoryProps } from "../../components/Category/Category";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import Header from "../../components/Header/Header";
 import { LinkButtonProps } from "../../components/LinkButton/LinkButton";
+import { CategoryProps } from "../../interfaces";
 
 const ManageCategories: FC = () => {
   const storedCategories = [

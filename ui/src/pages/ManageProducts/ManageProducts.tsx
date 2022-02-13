@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import Header from "../../components/Header/Header";
 import { LinkButtonProps } from "../../components/LinkButton/LinkButton";
-import { ProductProps } from "../../components/Product/Product";
+import { ProductProps } from "../../interfaces";
 import ProductsList from "../../components/ProductsList/ProductsList";
 
 const ManageProducts: FC = () => {

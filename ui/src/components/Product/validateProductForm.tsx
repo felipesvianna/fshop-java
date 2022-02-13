@@ -1,4 +1,4 @@
-import { ProductProps } from "./Product";
+import { ProductProps } from "../../interfaces";
 
 const validateProductForm = (productData: ProductProps) => {
   let errors = {};

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { CategoryProps } from "./Category";
+import { CategoryProps } from "../../interfaces";
 import validateCategoryForm from "./validateCategoryForm";
 
 interface CategoryFormProps {

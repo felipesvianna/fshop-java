@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mount, ReactWrapper } from "enzyme";
-import { CategoryProps } from "../../components/Category/Category";
 import CategoryForm from "../../components/Category/CategoryForm";
+import { CategoryProps } from "../../interfaces";
 import CreateCategoryPage from "./CreateCategoryPage";
 
 describe("CreateCategory page", () => {

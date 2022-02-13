@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import Header from "../../components/Header/Header";
 import CategoryForm from "../../components/Category/CategoryForm";
-import { CategoryProps } from "../../components/Category/Category";
 import { useParams } from "react-router-dom";
+import { CategoryProps } from "../../interfaces";
 
 const EditCategoryPage: FC = () => {
   const initialState = {

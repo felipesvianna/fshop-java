@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { ProductProps } from "../../interfaces";
 import validateProductForm from "./validateProductForm";
-import { ProductProps } from "./Product";
 
 interface ProductFormProps {
   productData?: ProductProps;

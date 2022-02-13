@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-export interface CategoryProps {
-  id: number;
-  name: string;
-}
+import { CategoryProps } from "../../interfaces";
+
 const Category: FC<CategoryProps> = (categoryData) => {
   return (
     <tr className="bg-white border-b">

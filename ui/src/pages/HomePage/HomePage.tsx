@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Header from "../../components/Header/Header";
-import { ProductCardProps } from "../../components/ProductCard/ProductCard";
 import ProductCardGrid from "../../components/ProductCardGrid/ProductCardGrid";
+import { ProductCardProps } from "../../interfaces";
 
 const HomePage: FC = () => {
   const hardcodedProductCards: ProductCardProps[] = [
