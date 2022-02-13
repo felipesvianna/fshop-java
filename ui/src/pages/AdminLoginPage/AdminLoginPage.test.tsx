@@ -6,16 +6,6 @@ import Header from "../../components/Header/Header";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import AdminLoginPage from "./AdminLoginPage";
 
-async function fillAndSubmitLoginForm(): Promise<void> {
-  const usernameField = screen.getByLabelText("Username:");
-  const passwordField = screen.getByLabelText("Password:");
-
-  fireEvent.change(usernameField, { target: { value: "username" } });
-  fireEvent.change(passwordField, { target: { value: "password" } });
-
-  await userEvent.click(screen.getByRole("button", { name: "Sign In" }));
-}
-
 describe("LoginPage page", () => {
   let wrapper: ReactWrapper;
 
@@ -37,12 +27,5 @@ describe("LoginPage page", () => {
 
   it("should contains LoginForm", () => {
     expect(wrapper.contains(<LoginForm />)).toBe(true);
-  });
-
-  it("should call handleSubmit on button click", async () => {
-    const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<LoginForm handleSubmit={handleSubmit} />);
-    await fillAndSubmitLoginForm();
-    expect(handleSubmit).toBeCalled();
   });
 });

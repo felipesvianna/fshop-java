@@ -24,25 +24,6 @@ const invalidInputValues = {
   price: 0,
 };
 
-async function fillAndSubmitForm(inputValues: ProductProps): Promise<void> {
-  const nameField = screen.getByLabelText("Name:");
-  const categoryField = screen.getByLabelText("Category:");
-  const quantityField = screen.getByLabelText("Quantity:");
-
-  fireEvent.change(nameField, { target: { value: inputValues.name } });
-
-  if (inputValues.category) {
-    userEvent.selectOptions(
-      categoryField,
-      screen.getByRole("option", { name: inputValues.category })
-    );
-  }
-
-  fireEvent.change(quantityField, { target: { value: inputValues.name } });
-
-  await userEvent.click(screen.getByRole("button", { name: "Save" }));
-}
-
 describe("CreateProduct page", () => {
   let wrapper: ReactWrapper;
 
@@ -56,19 +37,5 @@ describe("CreateProduct page", () => {
 
   it("should contains LoginForm", () => {
     expect(wrapper.contains(<ProductForm />)).toBe(true);
-  });
-
-  it("should fill form with valid input and call handleSubmit on submit", async () => {
-    const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<ProductForm handleSubmit={handleSubmit} />);
-    await fillAndSubmitForm(validInputValues);
-    expect(handleSubmit).toBeCalled();
-  });
-
-  it("should fill form with invalid input and cant call handleSubmit on submit", async () => {
-    const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<ProductForm handleSubmit={handleSubmit} />);
-    await fillAndSubmitForm(invalidInputValues);
-    expect(handleSubmit).not.toBeCalled();
   });
 });

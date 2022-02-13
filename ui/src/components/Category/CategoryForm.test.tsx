@@ -1,10 +1,43 @@
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { CategoryProps } from "../../interfaces";
 import CategoryForm from "./CategoryForm";
+
+const validInputValue = {
+  id: 1,
+  name: "new category",
+};
+
+const invalidInputValue = {
+  id: 1,
+  name: "ne",
+};
+
+async function fillAndSubmitForm(inputValues: CategoryProps): Promise<void> {
+  const nameField = screen.getByLabelText("Name:");
+  fireEvent.change(nameField, { target: { value: inputValues.name } });
+  await userEvent.click(screen.getByRole("button", { name: "Save" }));
+}
 
 describe("CategoryForm component", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
 
   const categoryInstance = { id: 1, name: "Eletronics" };
+
+  it("should fill form with invalid input and cant call handleSubmit on submit", async () => {
+    const handleSubmit = jest.fn((e) => e.preventDefault());
+    render(<CategoryForm handleSubmit={handleSubmit} />);
+    await fillAndSubmitForm(invalidInputValue);
+    expect(handleSubmit).not.toBeCalled();
+  });
+
+  it("should fill form with valid input and call handleSubmit on submit", async () => {
+    const handleSubmit = jest.fn((e) => e.preventDefault());
+    render(<CategoryForm handleSubmit={handleSubmit} />);
+    await fillAndSubmitForm(validInputValue);
+    expect(handleSubmit).toBeCalled();
+  });
 
   it("should show name of category in name field if has categoryData", () => {
     wrapper = mount(<CategoryForm categoryData={categoryInstance} />);

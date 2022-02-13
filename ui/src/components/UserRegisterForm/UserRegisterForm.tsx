@@ -45,56 +45,76 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <label htmlFor="firstname">First Name:</label>
-        <input
-          className="block border-solid border-2 border-black"
-          type="text"
-          id="firstname"
-          name="firstName"
-          onChange={onChangeForm}
-          value={formData.firstName}
-        />
+        <div className="block my-4">
+          <label htmlFor="firstname">First Name:</label>
+          <input
+            className="block border-solid border-2 border-black"
+            type="text"
+            id="firstname"
+            name="firstName"
+            onChange={onChangeForm}
+            value={formData.firstName}
+          />
+          <strong className="text-red-500">
+            {formErrors.firstName ? formErrors.firstName : null}
+          </strong>
+        </div>
 
-        <label htmlFor="lastname">Last Name:</label>
-        <input
-          className="block border-solid border-2 border-black"
-          type="text"
-          id="lastname"
-          name="lastName"
-          onChange={onChangeForm}
-          value={formData.lastName}
-        />
+        <div className="block my-4">
+          <label htmlFor="lastname">Last Name:</label>
+          <input
+            className="block border-solid border-2 border-black"
+            type="text"
+            id="lastname"
+            name="lastName"
+            onChange={onChangeForm}
+            value={formData.lastName}
+          />
+        </div>
 
-        <label htmlFor="address">Address:</label>
-        <input
-          className="block border-solid border-2 border-black"
-          type="text"
-          id="address"
-          name="address"
-          onChange={onChangeForm}
-          value={formData.address}
-        />
+        <div className="block my-4">
+          <label htmlFor="address">Address:</label>
+          <input
+            className="block border-solid border-2 border-black"
+            type="text"
+            id="address"
+            name="address"
+            onChange={onChangeForm}
+            value={formData.address}
+          />
+          <strong className="text-red-500">
+            {formErrors.address ? formErrors.address : null}
+          </strong>
+        </div>
+        <div className="block my-4">
+          <label htmlFor="username">Username:</label>
+          <input
+            className="block border-solid border-2 border-black"
+            type="text"
+            id="username"
+            name="username"
+            onChange={onChangeForm}
+            value={formData.username}
+          />
+          <strong className="text-red-500">
+            {formErrors.username ? formErrors.username : null}
+          </strong>
+        </div>
 
-        <label htmlFor="username">Username:</label>
-        <input
-          className="block border-solid border-2 border-black"
-          type="text"
-          id="username"
-          name="username"
-          onChange={onChangeForm}
-          value={formData.username}
-        />
-
-        <label htmlFor="password">Password:</label>
-        <input
-          className="block border-solid border-2 border-black"
-          type="password"
-          id="password"
-          name="password"
-          onChange={onChangeForm}
-          value={formData.password}
-        />
-
+        <div className="block my-4">
+          <label htmlFor="password">Password:</label>
+          <input
+            className="block border-solid border-2 border-black"
+            type="password"
+            id="password"
+            name="password"
+            onChange={onChangeForm}
+            value={formData.password}
+          />
+          <strong className="text-red-500">
+            {formErrors.password ? formErrors.password : null}
+          </strong>
+        </div>
         <button
           className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           type="submit"
