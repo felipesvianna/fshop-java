@@ -20,25 +20,6 @@ describe("ProductsList component", () => {
     },
   ];
 
-  it("should fill table with categories", () => {
-    wrapper = mount(
-      <MemoryRouter>
-        <CategoryList listOfCategories={testCategoyList} />
-      </MemoryRouter>
-    );
-    const rows = wrapper.find("tr");
-    expect(rows).toHaveLength(3 + 1); // 1 is for table
-  });
-
-  it("should render a table", () => {
-    wrapper = mount(
-      <MemoryRouter>
-        <CategoryList listOfCategories={testCategoyList} />
-      </MemoryRouter>
-    );
-    expect(wrapper.find({ id: "categories-list" })).toHaveLength(1);
-  });
-
   it("should show message if listOfProducts is empty", () => {
     wrapper = mount(
       <MemoryRouter>
@@ -46,5 +27,24 @@ describe("ProductsList component", () => {
       </MemoryRouter>
     );
     expect(wrapper.text()).toContain("There is no categories.");
+  });
+
+  describe("Table rendering", () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <MemoryRouter>
+          <CategoryList listOfCategories={testCategoyList} />
+        </MemoryRouter>
+      );
+    });
+
+    it("should fill table with categories", () => {
+      const rows = wrapper.find("tr");
+      expect(rows).toHaveLength(3 + 1); // 1 is for table
+    });
+
+    it("should render a table", () => {
+      expect(wrapper.find({ id: "categories-list" })).toHaveLength(1);
+    });
   });
 });

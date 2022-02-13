@@ -10,14 +10,6 @@ describe("ProductCardGrid component", () => {
     { id: 2, name: "Shelf", price: 127.89 },
   ];
 
-  beforeEach(() => {
-    wrapper = mount(
-      <MemoryRouter>
-        <ProductCardGrid cardsList={cardListInstance} />
-      </MemoryRouter>
-    );
-  });
-
   it("should show link to product details page", () => {
     wrapper = mount(
       <MemoryRouter>
@@ -31,6 +23,11 @@ describe("ProductCardGrid component", () => {
   });
 
   it("should render cards without errors", () => {
+    wrapper = mount(
+      <MemoryRouter>
+        <ProductCardGrid cardsList={cardListInstance} />
+      </MemoryRouter>
+    );
     expect(wrapper.text()).toContain("Monitor");
     expect(wrapper.text()).toContain("2999.99");
 

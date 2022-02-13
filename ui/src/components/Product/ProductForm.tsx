@@ -116,7 +116,7 @@ const ProductForm: FC<ProductFormProps> = ({ productData, handleSubmit }) => {
         </div>
 
         <strong className="text-red-500">
-          {formErrors.name ? formErrors.name : null}
+          {formErrors.details ? formErrors.details : null}
         </strong>
 
         <div className="block my-4">
@@ -129,6 +129,9 @@ const ProductForm: FC<ProductFormProps> = ({ productData, handleSubmit }) => {
             onChange={onChangeForm}
             value={formData.price}
           />
+          <strong className="text-red-500">
+            {formErrors.price ? formErrors.price : null}
+          </strong>
         </div>
 
         <div className="flex justify-start">
