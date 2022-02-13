@@ -5,7 +5,7 @@ import validateUserRegisterForm from "./validateUserRegisterForm";
 interface FormErrorsProps {
   firstName?: string;
   address?: string;
-  username?: string;
+  email?: string;
   password?: string;
 }
 
@@ -18,7 +18,7 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
     firstName: "",
     lastName: "",
     address: "",
-    username: "",
+    email: "",
     password: "",
   };
 
@@ -87,17 +87,17 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
           </strong>
         </div>
         <div className="block my-4">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">Email:</label>
           <input
             className="block border-solid border-2 border-black"
             type="text"
-            id="username"
-            name="username"
+            id="email"
+            name="email"
             onChange={onChangeForm}
-            value={formData.username}
+            value={formData.email}
           />
           <strong className="text-red-500">
-            {formErrors.username ? formErrors.username : null}
+            {formErrors.email ? formErrors.email : null}
           </strong>
         </div>
 

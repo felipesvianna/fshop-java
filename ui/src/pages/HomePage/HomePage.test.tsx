@@ -1,4 +1,4 @@
-import { mount, ReactWrapper } from "enzyme";
+import { CommonWrapper, mount, ReactWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ProductCardGrid from "../../components/ProductCardGrid/ProductCardGrid";
@@ -15,10 +15,24 @@ describe("LoginPage page", () => {
     );
   });
 
-  it("should show link to register user", () => {
-    const link = wrapper.find("Link").first();
-    expect(link.text()).toEqual("Create account");
-    expect(link.prop("to")).toEqual("/userregister");
+  it("should render list of links on header", () => {
+    const listOfLinks = [
+      { routeName: "/userregister", pageName: "Create account" },
+      { routeName: "/signin", pageName: "Sign in" },
+    ];
+
+    let nodes: CommonWrapper[] = [];
+
+    const links = wrapper.find("Link");
+    for (let i = 0; i < 2; i++) {
+      // get first 2 header children links
+      nodes.push(links.at(i));
+    }
+
+    nodes.forEach((node, index) => {
+      expect(node.text()).toEqual(listOfLinks[index].pageName);
+      expect(node.prop("to")).toEqual(listOfLinks[index].routeName);
+    });
   });
 
   it("should contains ProductCardGrid component", () => {

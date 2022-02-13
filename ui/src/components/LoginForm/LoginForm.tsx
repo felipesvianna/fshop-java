@@ -8,11 +8,11 @@ const LoginForm: FC<LoginFormProps> = ({ handleSubmit }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username: </label>
+        <label htmlFor="email">Email: </label>
         <input
           className="block border-solid border-2 border-black"
           type="text"
-          id="username"
+          id="email"
         />
 
         <label htmlFor="password">Password: </label>

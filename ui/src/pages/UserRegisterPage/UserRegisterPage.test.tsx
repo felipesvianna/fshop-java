@@ -10,7 +10,7 @@ const validInputValues = {
   firstName: "Airton",
   lastName: "Soares",
   address: "Rua Mocambique 4782",
-  username: "asoares",
+  email: "asoares",
   password: "asoares",
 };
 
@@ -18,7 +18,7 @@ const invalidInputValues = {
   firstName: "Ai",
   lastName: "",
   address: "Rua",
-  username: "aso",
+  email: "aso",
   password: "aso",
 };
 
@@ -26,7 +26,7 @@ async function fillAndSubmitForm(inputValues: UserProps): Promise<void> {
   const firstNameField = screen.getByLabelText("First Name:");
   const lastNameField = screen.getByLabelText("Last Name:");
   const addressField = screen.getByLabelText("Address:");
-  const usernameField = screen.getByLabelText("Username:");
+  const emailField = screen.getByLabelText("Email:");
   const passwordField = screen.getByLabelText("Password:");
 
   fireEvent.change(firstNameField, {
@@ -38,8 +38,8 @@ async function fillAndSubmitForm(inputValues: UserProps): Promise<void> {
   fireEvent.change(addressField, {
     target: { value: inputValues.address },
   });
-  fireEvent.change(usernameField, {
-    target: { value: inputValues.username },
+  fireEvent.change(emailField, {
+    target: { value: inputValues.email },
   });
   fireEvent.change(passwordField, {
     target: { value: inputValues.password },

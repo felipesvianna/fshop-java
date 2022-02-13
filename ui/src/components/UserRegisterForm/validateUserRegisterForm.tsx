@@ -12,8 +12,8 @@ const validateUserRegisterForm = (userData: UserProps) => {
     errors = { ...errors, address: "Must have more than 3 characters" };
   }
 
-  if (!userData.username || userData.username.length <= 3) {
-    errors = { ...errors, username: "Must have more than 3 characters" };
+  if (!userData.email || userData.email.length <= 3) {
+    errors = { ...errors, email: "Must have more than 3 characters" };
   }
 
   if (!userData.password || userData.password.length <= 3) {

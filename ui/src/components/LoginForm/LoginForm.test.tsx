@@ -4,10 +4,10 @@ import { shallow, ShallowWrapper } from "enzyme";
 import LoginForm from "./LoginForm";
 
 async function fillAndSubmitLoginForm(): Promise<void> {
-  const usernameField = screen.getByLabelText("Username:");
+  const emailField = screen.getByLabelText("Email:");
   const passwordField = screen.getByLabelText("Password:");
 
-  fireEvent.change(usernameField, { target: { value: "username" } });
+  fireEvent.change(emailField, { target: { value: "Email" } });
   fireEvent.change(passwordField, { target: { value: "password" } });
 
   await userEvent.click(screen.getByRole("button", { name: "Sign In" }));
@@ -25,7 +25,7 @@ describe("LoginForm component", () => {
 
   it("should render a form without errors", () => {
     wrapper = shallow(<LoginForm />);
-    expect(wrapper.find('input[id="username"]').exists()).toEqual(true);
+    expect(wrapper.find('input[id="email"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="password"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Sign In");
   });

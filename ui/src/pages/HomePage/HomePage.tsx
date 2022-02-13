@@ -12,6 +12,7 @@ const HomePage: FC = () => {
 
   const headerLinks: LinkButtonProps[] = [
     { routeName: "/userregister", pageName: "Create account" },
+    { routeName: "/signin", pageName: "Sign in" },
   ];
   return (
     <>

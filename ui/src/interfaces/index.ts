@@ -27,6 +27,6 @@ export interface UserProps {
   firstName?: string;
   lastName?: string;
   address?: string;
-  username?: string;
+  email?: string;
   password?: string;
 }

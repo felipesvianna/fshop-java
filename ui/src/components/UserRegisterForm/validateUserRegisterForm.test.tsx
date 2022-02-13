@@ -5,7 +5,7 @@ describe("validate Create Product Form", () => {
     firstName: "Airton",
     lastName: "Soares",
     address: "Rua Mocambique 4782",
-    username: "asoares",
+    email: "asoares",
     password: "asoares",
   };
 
@@ -13,7 +13,7 @@ describe("validate Create Product Form", () => {
     firstName: "Ai",
     lastName: "",
     address: "Rua",
-    username: "aso",
+    email: "aso",
     password: "aso",
   };
 
@@ -22,7 +22,7 @@ describe("validate Create Product Form", () => {
     expect(errors).toMatchObject({
       firstName: "Must have more than 3 characters",
       address: "Must have more than 3 characters",
-      username: "Must have more than 3 characters",
+      email: "Must have more than 3 characters",
       password: "Must have more than 3 characters",
     });
   });
@@ -32,7 +32,7 @@ describe("validate Create Product Form", () => {
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua",
-      username: "asoares",
+      email: "asoares",
       password: "asoares",
     });
     expect(errors).toMatchObject({
@@ -40,16 +40,16 @@ describe("validate Create Product Form", () => {
     });
   });
 
-  it("should show error message if username is less than 3 characters", () => {
+  it("should show error message if email is less than 3 characters", () => {
     const errors = validateUserRegisterForm({
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua",
-      username: "as",
+      email: "as",
       password: "asoares",
     });
     expect(errors).toMatchObject({
-      username: "Must have more than 3 characters",
+      email: "Must have more than 3 characters",
     });
   });
 
@@ -58,7 +58,7 @@ describe("validate Create Product Form", () => {
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua Mocambique 4782",
-      username: "asoares",
+      email: "asoares",
       password: "as",
     });
     expect(errors).toMatchObject({

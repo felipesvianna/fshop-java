@@ -9,7 +9,7 @@ describe("UserRegisterForm component", () => {
     expect(wrapper.find('input[id="firstname"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="lastname"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="address"]').exists()).toEqual(true);
-    expect(wrapper.find('input[id="username"]').exists()).toEqual(true);
+    expect(wrapper.find('input[id="email"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="password"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Register");
   });

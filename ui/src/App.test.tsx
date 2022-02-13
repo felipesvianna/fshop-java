@@ -13,9 +13,19 @@ import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
+import UserSignInPage from "./pages/UserSignInPage/UserSignInPage";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
+
+  it('should show ProductDetails component for "/signin"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/signin"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(UserSignInPage)).toHaveLength(1);
+  });
 
   it('should show ProductDetails component for "/userregister"', () => {
     wrapper = mount(
