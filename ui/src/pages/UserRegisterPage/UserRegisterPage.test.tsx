@@ -10,7 +10,7 @@ const validInputValues = {
   firstName: "Airton",
   lastName: "Soares",
   address: "Rua Mocambique 4782",
-  email: "asoares",
+  email: "asoares@email.com",
   password: "asoares",
 };
 

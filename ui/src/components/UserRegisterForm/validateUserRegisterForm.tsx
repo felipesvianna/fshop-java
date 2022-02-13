@@ -3,6 +3,7 @@ import { UserProps } from "../../interfaces";
 
 const validateUserRegisterForm = (userData: UserProps) => {
   let errors = {};
+  const regexEmailField = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!userData.firstName || userData.firstName.length <= 3) {
     errors = { ...errors, firstName: "Must have more than 3 characters" };
@@ -12,8 +13,12 @@ const validateUserRegisterForm = (userData: UserProps) => {
     errors = { ...errors, address: "Must have more than 3 characters" };
   }
 
-  if (!userData.email || userData.email.length <= 3) {
-    errors = { ...errors, email: "Must have more than 3 characters" };
+  if (
+    !userData.email ||
+    userData.email.length <= 3 ||
+    (userData.email && !userData.email.match(regexEmailField))
+  ) {
+    errors = { ...errors, email: "Invalid email address" };
   }
 
   if (!userData.password || userData.password.length <= 3) {
