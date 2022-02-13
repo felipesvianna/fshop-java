@@ -1,3 +1,8 @@
+export interface LinkButtonProps {
+    routeName: string;
+    pageName: string;
+}
+
 export interface CategoryProps {
     id: number;
     name: string;

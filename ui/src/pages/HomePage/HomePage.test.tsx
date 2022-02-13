@@ -15,6 +15,12 @@ describe("LoginPage page", () => {
     );
   });
 
+  it("should show link to register user", () => {
+    const link = wrapper.find("Link").first();
+    expect(link.text()).toEqual("Create account");
+    expect(link.prop("to")).toEqual("/userregister");
+  });
+
   it("should contains ProductCardGrid component", () => {
     expect(wrapper.find(ProductCardGrid)).toHaveLength(1);
   });

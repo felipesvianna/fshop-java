@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Header from "../../components/Header/Header";
-import { LinkButtonProps } from "../../components/LinkButton/LinkButton";
+import { LinkButtonProps } from "../../interfaces";
 
 const ManagePage: FC = () => {
   const headerLinks: LinkButtonProps[] = [

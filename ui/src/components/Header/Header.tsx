@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import LinkButton, { LinkButtonProps } from "../LinkButton/LinkButton";
+import { LinkButtonProps } from "../../interfaces";
+import LinkButton from "../LinkButton/LinkButton";
 
 interface HeaderProps {
   pageName: string;

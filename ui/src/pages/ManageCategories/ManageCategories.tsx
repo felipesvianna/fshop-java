@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import Header from "../../components/Header/Header";
-import { LinkButtonProps } from "../../components/LinkButton/LinkButton";
+import { LinkButtonProps } from "../../interfaces";
 import { CategoryProps } from "../../interfaces";
 
 const ManageCategories: FC = () => {
