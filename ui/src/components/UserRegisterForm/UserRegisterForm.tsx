@@ -15,6 +15,7 @@ interface UserRegisterFormProps {
 
 const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
   const initialState = {
+    id: 0,
     firstName: "",
     lastName: "",
     address: "",

@@ -5,6 +5,7 @@ import { UserProps } from "../../interfaces";
 import UserRegisterForm from "./UserRegisterForm";
 
 const validInputValues = {
+  id: 1,
   firstName: "Airton",
   lastName: "Soares",
   address: "Rua Mocambique 4782",
@@ -13,6 +14,7 @@ const validInputValues = {
 };
 
 const invalidInputValues = {
+  id: 1,
   firstName: "Ai",
   lastName: "",
   address: "Rua",

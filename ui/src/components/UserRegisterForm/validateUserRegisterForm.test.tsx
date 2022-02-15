@@ -2,6 +2,7 @@ import validateUserRegisterForm from "./validateUserRegisterForm";
 
 describe("validate Create Product Form", () => {
   const validInput = {
+    id: 1,
     firstName: "Airton",
     lastName: "Soares",
     address: "Rua Mocambique 4782",
@@ -10,6 +11,7 @@ describe("validate Create Product Form", () => {
   };
 
   const invalidInput = {
+    id: 1,
     firstName: "Ai",
     lastName: "",
     address: "Rua",
@@ -19,6 +21,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message with invalid email address", () => {
     const errors = validateUserRegisterForm({
+      id: 1,
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua Mocambique 4782",
@@ -40,6 +43,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message if address is less than 3 characters", () => {
     const errors = validateUserRegisterForm({
+      id: 1,
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua",
@@ -53,6 +57,7 @@ describe("validate Create Product Form", () => {
 
   it("should show error message if password is less than 3 characters", () => {
     const errors = validateUserRegisterForm({
+      id: 1,
       firstName: "Airton",
       lastName: "Soares",
       address: "Rua Mocambique 4782",
