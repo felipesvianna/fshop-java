@@ -18,13 +18,14 @@ describe("ManageProducts page", () => {
     const listOfLinks = [
       { routeName: "/admin/createproduct", pageName: "Create product" },
       { routeName: "/admin/managecategories", pageName: "Manage categories" },
+      { routeName: "/admin/manage", pageName: "Manage orders" },
     ];
 
     let nodes: CommonWrapper[] = [];
 
     const links = wrapper.find("Link");
-    for (let i = 0; i < 2; i++) {
-      // get first 2 header children links
+    for (let i = 0; i < 3; i++) {
+      // get first 3 header children links
       nodes.push(links.at(i));
     }
 
