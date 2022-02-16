@@ -1,4 +1,5 @@
 import { mount, ReactWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import UserRegisterForm from "../../components/UserRegisterForm/UserRegisterForm";
 import UserRegisterPage from "./UserRegisterPage";
@@ -7,7 +8,11 @@ describe("UserRegisterPage component", () => {
   let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = mount(<UserRegisterPage />);
+    wrapper = mount(
+      <MemoryRouter>
+        <UserRegisterPage />
+      </MemoryRouter>
+    );
   });
 
   it("should contains UserRegisterForm component", () => {

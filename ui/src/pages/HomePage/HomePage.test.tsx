@@ -2,16 +2,19 @@ import { CommonWrapper, mount, ReactWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ProductCardGrid from "../../components/ProductCardGrid/ProductCardGrid";
+import AuthenticationContextProvider from "../../context/AuthenticationContext/AuthenticationContextProvider";
 import HomePage from "./HomePage";
 
-describe("LoginPage page", () => {
+describe("HomePage page", () => {
   let wrapper: ReactWrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <MemoryRouter>
-        <HomePage />
-      </MemoryRouter>
+      <AuthenticationContextProvider>
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
+      </AuthenticationContextProvider>
     );
   });
 

@@ -1,20 +1,22 @@
-import React, { createContext, FC } from "react";
+import React, { FC } from "react";
+import AuthenticationContext from "./";
 
 type AuthenticationContextProps = {
   children: React.ReactNode;
 };
-
-const authenticationContext = createContext(null);
 
 // import state data to send to provider on value
 
 const AuthenticationContextProvider: FC<AuthenticationContextProps> = ({
   children,
 }) => {
+  const providerValues = {
+    isAuthenticated: false,
+  };
   return (
-    <authenticationContext.Provider value={null}>
+    <AuthenticationContext.Provider value={providerValues}>
       {children}
-    </authenticationContext.Provider>
+    </AuthenticationContext.Provider>
   );
 };
 

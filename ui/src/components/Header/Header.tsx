@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+import AuthenticationContext from "../../context/AuthenticationContext";
 import { LinkButtonProps } from "../../interfaces";
 import LinkButton from "../LinkButton/LinkButton";
 
@@ -7,19 +8,32 @@ interface HeaderProps {
   listOfLinks?: LinkButtonProps[];
 }
 const Header: FC<HeaderProps> = ({ pageName, listOfLinks }) => {
+  const authenticationContext = useContext(AuthenticationContext);
+
+  const { isAuthenticated } = authenticationContext;
+
   return (
-    <header className="my-4">
-      <p className="font-bold">{pageName}</p>
-      <div className="mt-4">
-        {listOfLinks?.map((link, index) => {
-          return (
-            <LinkButton
-              key={index}
-              routeName={link.routeName}
-              pageName={link.pageName}
-            />
-          );
-        })}
+    <header className="flex justify-between my-4">
+      <div>
+        <p className="font-bold">{pageName}</p>
+        <div className="mt-4">
+          {listOfLinks?.map((link, index) => {
+            return (
+              <LinkButton
+                key={index}
+                routeName={link.routeName}
+                linkName={link.linkName}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        {isAuthenticated ? (
+          <LinkButton routeName="/logout" linkName="Logout" />
+        ) : (
+          <LinkButton routeName="/signin" linkName="Sign in" />
+        )}
       </div>
     </header>
   );

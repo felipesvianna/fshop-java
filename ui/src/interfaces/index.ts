@@ -8,7 +8,7 @@ export interface AuthenticationProps {
 
 export interface LinkButtonProps {
   routeName: string;
-  pageName: string;
+  linkName: string;
 }
 
 export interface CategoryProps {

@@ -1,5 +1,4 @@
-import React, { FC, FormEvent } from "react";
-import Header from "../../components/Header/Header";
+import React, { FC } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
 const UserSignInPage: FC = () => {
@@ -9,7 +8,7 @@ const UserSignInPage: FC = () => {
   };
   return (
     <>
-      <Header pageName="Sign In" />
+      <p className="font-bold my-4">Sign in</p>
       <LoginForm handleSubmit={handleSubmit} />
     </>
   );

@@ -21,7 +21,7 @@ const ManageCategories: FC = () => {
   ];
 
   const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/createcategory", pageName: "Create category" },
+    { routeName: "/admin/createcategory", linkName: "Create category" },
   ];
 
   const [categoriesList, setCategoriesList] =

@@ -1,4 +1,5 @@
 import { mount, ReactWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ProductDetails from "./ProductDetails";
 
@@ -14,13 +15,19 @@ describe("ProductDetails page", () => {
 
   let wrapper: ReactWrapper;
 
+  beforeEach(() => {
+    wrapper = mount(
+      <MemoryRouter>
+        <ProductDetails productData={testProductInstance} />
+      </MemoryRouter>
+    );
+  });
+
   it("should show link to add product to cart", () => {
-    wrapper = mount(<ProductDetails productData={testProductInstance} />);
     expect(wrapper.find({ name: "addToCart" }).text()).toEqual("Add to Cart");
   });
 
   it("should render product data when receive productData", () => {
-    wrapper = mount(<ProductDetails productData={testProductInstance} />);
     expect(wrapper.text()).toContain("Monitor");
     expect(wrapper.text()).toContain("Computers");
     expect(wrapper.text()).toContain(
@@ -31,7 +38,6 @@ describe("ProductDetails page", () => {
   });
 
   it("should render without errors", () => {
-    wrapper = mount(<ProductDetails productData={testProductInstance} />);
     expect(wrapper.find(Header)).toHaveLength(1);
   });
 });

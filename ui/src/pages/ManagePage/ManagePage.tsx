@@ -4,7 +4,7 @@ import { LinkButtonProps } from "../../interfaces";
 
 const ManagePage: FC = () => {
   const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/manageproducts", pageName: "Manage products" },
+    { routeName: "/admin/manageproducts", linkName: "Manage products" },
   ];
   return (
     <>

@@ -14,7 +14,7 @@ describe("ManagePage page", () => {
   });
 
   it("should show Manage products link", () => {
-    const link = wrapper.find("Link");
+    const link = wrapper.find("Link").first();
     expect(link.text()).toEqual("Manage products");
     expect(link.prop("to")).toEqual("/admin/manageproducts");
   });

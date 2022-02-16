@@ -1,25 +1,27 @@
 import { render, screen } from "@testing-library/react";
-import { Children, FC } from "react";
-import AuthenticationContextProvider from "./AuthenticationContextProvider";
+import { FC } from "react";
 import AuthenticationContext from ".";
-import { type } from "@testing-library/user-event/dist/type";
-import { ReactWrapper } from "enzyme";
 import { AuthenticationProps } from "../../interfaces";
 
-type ContextValueProp = {
-  data?: string;
-};
-
 const contextValues = {
-  data: "A context value passed!",
+  token: "tokentoken",
+  isAuthenticated: true,
+  userData: {
+    id: 1,
+    firstName: "Airton",
+    lastName: "Soares",
+    address: "Rua Mocambique 4782",
+    email: "asoares@email.com",
+    password: "asoares",
+  },
 };
 
 describe("AuthenticationContextProvider context", () => {
   const ComponentMock: FC = () => {
     return (
       <AuthenticationContext.Consumer>
-        {(contextValues: ContextValueProp) => {
-          return <p>{contextValues.data}</p>;
+        {(contextValues: AuthenticationProps) => {
+          return <p>{contextValues.token}</p>;
         }}
       </AuthenticationContext.Consumer>
     );
@@ -31,6 +33,6 @@ describe("AuthenticationContextProvider context", () => {
         <ComponentMock />
       </AuthenticationContext.Provider>
     );
-    expect(screen.getByText("A context value passed!")).toBeInTheDocument();
+    expect(screen.getByText("tokentoken")).toBeInTheDocument();
   });
 });

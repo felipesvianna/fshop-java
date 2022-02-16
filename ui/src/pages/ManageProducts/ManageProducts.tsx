@@ -34,9 +34,9 @@ const ManageProducts: FC = () => {
   ];
 
   const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/createproduct", pageName: "Create product" },
-    { routeName: "/admin/managecategories", pageName: "Manage categories" },
-    { routeName: "/admin/manage", pageName: "Manage orders" },
+    { routeName: "/admin/createproduct", linkName: "Create product" },
+    { routeName: "/admin/managecategories", linkName: "Manage categories" },
+    { routeName: "/admin/manage", linkName: "Manage orders" },
   ];
 
   const [productsList, setProductsList] =
