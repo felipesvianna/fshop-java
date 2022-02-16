@@ -27,7 +27,7 @@ describe("AuthenticationContextProvider context", () => {
     );
   };
 
-  it("should render children components", () => {
+  it("should access provider values on children components", () => {
     render(
       <AuthenticationContext.Provider value={contextValues}>
         <ComponentMock />

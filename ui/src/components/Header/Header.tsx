@@ -1,5 +1,6 @@
 import React, { FC, useContext } from "react";
 import AuthenticationContext from "../../context/AuthenticationContext";
+import CartContext from "../../context/CartContext";
 import { LinkButtonProps } from "../../interfaces";
 import LinkButton from "../LinkButton/LinkButton";
 
@@ -9,8 +10,10 @@ interface HeaderProps {
 }
 const Header: FC<HeaderProps> = ({ pageName, listOfLinks }) => {
   const authenticationContext = useContext(AuthenticationContext);
+  const cartContext = useContext(CartContext);
 
   const { isAuthenticated } = authenticationContext;
+  const { itemsList } = cartContext;
 
   return (
     <header className="flex justify-between my-4">
@@ -34,6 +37,13 @@ const Header: FC<HeaderProps> = ({ pageName, listOfLinks }) => {
         ) : (
           <LinkButton routeName="/signin" linkName="Sign in" />
         )}
+
+        {
+          <LinkButton
+            routeName="/1/cart"
+            linkName={"Cart(" + itemsList.length + ")"}
+          />
+        }
       </div>
     </header>
   );

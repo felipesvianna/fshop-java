@@ -1,12 +1,69 @@
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
 import AuthenticationContext from "../../context/AuthenticationContext";
-import { AuthenticationProps } from "../../interfaces";
+import CartContext from "../../context/CartContext";
+import { AuthenticationProps, CartProps } from "../../interfaces";
 import Header from "./Header";
 
-describe("Header component", () => {
-  let wrapper: ShallowWrapper | ReactWrapper;
+let wrapper: ShallowWrapper | ReactWrapper;
 
+describe("Header component with Cart Context", () => {
+  const startState = {
+    itemsList: [
+      {
+        id: 1,
+        name: "Monitor",
+        details: '32" Class QHD (2560 x 1440) IPS Display (31.5" Screen Size)',
+        category: "Computers",
+        quantity: 5,
+        price: 2000.99,
+      },
+      {
+        id: 2,
+        name: "Headphones",
+        details:
+          "Unlike other brands that are heavy, bulky and cause fatigue, our ergonomic design optimizes comfort",
+        category: "Eletronics",
+        quantity: 10,
+        price: 499.99,
+      },
+      {
+        id: 3,
+        name: "Shelf",
+        details:
+          "Two-tiered shelving unit system with modular, stackable design",
+        category: "Home & Kitchen",
+        quantity: 2,
+        price: 120.99,
+      },
+    ],
+  };
+
+  const customRender = (state: CartProps) => {
+    return mount(
+      <CartContext.Provider value={state}>
+        <MemoryRouter>
+          <Header pageName="F-Shop" />
+        </MemoryRouter>
+      </CartContext.Provider>
+    );
+  };
+
+  it("should show cart link with the number of items when the itemsList is not empty", () => {
+    wrapper = customRender(startState);
+    const expectedLength = startState.itemsList.length;
+    const link = wrapper.find("Link[to='/1/cart']");
+    expect(link.text()).toEqual("Cart(" + expectedLength + ")"); // ex: Cart(3)
+  });
+
+  it("should show cart link with 0 items when the itemsList is empty", () => {
+    wrapper = customRender({ itemsList: [] });
+    const link = wrapper.find("Link[to='/1/cart']");
+    expect(link.text()).toEqual("Cart(0)");
+  });
+});
+
+describe("Header component with Authentication Context", () => {
   const stateTest = {
     token: "tokentoken",
     isAuthenticated: true,
@@ -37,12 +94,16 @@ describe("Header component", () => {
     };
 
     wrapper = customRender(state);
-    expect(wrapper.text()).toContain("Sign in");
+    const link = wrapper.find("Link").first();
+    expect(link.text()).toEqual("Sign in");
+    expect(link.prop("to")).toEqual("/signin");
   });
 
   it("should show Logout link if user is authenticated", () => {
     wrapper = customRender(stateTest);
-    expect(wrapper.text()).toContain("Logout");
+    const link = wrapper.find("Link").first();
+    expect(link.text()).toEqual("Logout");
+    expect(link.prop("to")).toEqual("/logout");
   });
 
   it("should render list of links", () => {
