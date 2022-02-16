@@ -13,41 +13,44 @@ import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
 import UserSignInPage from "./pages/UserSignInPage/UserSignInPage";
+import AuthenticationContextProvider from "./context/AuthenticationContext/AuthenticationContextProvider";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/admin" element={<AdminLoginPage />} />
-      <Route path="/admin/createproduct" element={<CreateProductPage />} />
-      <Route path="/userregister" element={<UserRegisterPage />} />
-      <Route path="/signin" element={<UserSignInPage />} />
-      <Route path="/productdetails/:idProduct" element={<ProductDetails />} />
-      <Route
-        path="/admin/manage"
-        element={<PrivateRoute component={ManagePage} />}
-      />
-      <Route
-        path="/admin/manageproducts"
-        element={<PrivateRoute component={ManageProducts} />}
-      />
-      <Route
-        path="/admin/managecategories"
-        element={<PrivateRoute component={ManageCategories} />}
-      />
-      <Route
-        path="/admin/createcategory"
-        element={<PrivateRoute component={CreateCategoryPage} />}
-      />
-      <Route
-        path="/admin/editcategory/:idCategory"
-        element={<PrivateRoute component={EditCategoryPage} />}
-      />
-      <Route
-        path="/admin/editproduct/:idProduct"
-        element={<PrivateRoute component={EditProductPage} />}
-      />
-    </Routes>
+    <AuthenticationContextProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/admin" element={<AdminLoginPage />} />
+        <Route path="/admin/createproduct" element={<CreateProductPage />} />
+        <Route path="/userregister" element={<UserRegisterPage />} />
+        <Route path="/signin" element={<UserSignInPage />} />
+        <Route path="/productdetails/:idProduct" element={<ProductDetails />} />
+        <Route
+          path="/admin/manage"
+          element={<PrivateRoute component={ManagePage} />}
+        />
+        <Route
+          path="/admin/manageproducts"
+          element={<PrivateRoute component={ManageProducts} />}
+        />
+        <Route
+          path="/admin/managecategories"
+          element={<PrivateRoute component={ManageCategories} />}
+        />
+        <Route
+          path="/admin/createcategory"
+          element={<PrivateRoute component={CreateCategoryPage} />}
+        />
+        <Route
+          path="/admin/editcategory/:idCategory"
+          element={<PrivateRoute component={EditCategoryPage} />}
+        />
+        <Route
+          path="/admin/editproduct/:idProduct"
+          element={<PrivateRoute component={EditProductPage} />}
+        />
+      </Routes>
+    </AuthenticationContextProvider>
   );
 }
 

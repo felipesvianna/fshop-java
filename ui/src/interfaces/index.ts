@@ -1,3 +1,11 @@
+import React from "react";
+
+export interface AuthenticationProps {
+  token?: string;
+  isAuthenticated?: boolean;
+  userData?: UserProps;
+}
+
 export interface LinkButtonProps {
   routeName: string;
   pageName: string;

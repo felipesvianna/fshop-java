@@ -24,8 +24,8 @@ describe("ManageProducts page", () => {
     let nodes: CommonWrapper[] = [];
 
     const links = wrapper.find("Link");
-    for (let i = 0; i < 3; i++) {
-      // get first 3 header children links
+    for (let i = 0; i < listOfLinks.length; i++) {
+      // get header links only
       nodes.push(links.at(i));
     }
 
