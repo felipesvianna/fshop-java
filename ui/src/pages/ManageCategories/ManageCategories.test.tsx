@@ -21,10 +21,6 @@ describe("ManageCategories page", () => {
     expect(link.prop("to")).toEqual("/admin/createcategory");
   });
 
-  it("should contains Header component", () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
-  });
-
   it("should contains ProductsList component", () => {
     expect(wrapper.find(CategoryList)).toHaveLength(1);
   });

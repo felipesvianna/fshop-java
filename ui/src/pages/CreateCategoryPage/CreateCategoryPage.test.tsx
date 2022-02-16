@@ -16,10 +16,6 @@ describe("CreateCategory page", () => {
     expect(wrapper.text()).toContain("Create category");
   });
 
-  it("should contains Header component", () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
-  });
-
   it("should contains CreateCategoryForm", () => {
     expect(wrapper.contains(<CategoryForm />)).toBe(true);
   });

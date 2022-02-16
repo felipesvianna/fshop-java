@@ -22,8 +22,4 @@ describe("UserRegisterPage component", () => {
   it("should render without errors", () => {
     expect(wrapper.text()).toContain("Create Account");
   });
-
-  it("should contains Header component", () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
-  });
 });

@@ -5,7 +5,7 @@ import ProductForm from "../../components/Product/ProductForm";
 const CreateProductPage: FC = () => {
   return (
     <>
-      <Header pageName="Create Product" />
+      <p className="font-bold my-4">Create Product</p>
       <ProductForm />
     </>
   );

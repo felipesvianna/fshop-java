@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import CategoryList from "../../components/CategoryList/CategoryList";
-import Header from "../../components/Header/Header";
-import { LinkButtonProps } from "../../interfaces";
+import LinkButton from "../../components/LinkButton/LinkButton";
 import { CategoryProps } from "../../interfaces";
 
 const ManageCategories: FC = () => {
@@ -20,16 +19,16 @@ const ManageCategories: FC = () => {
     },
   ];
 
-  const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/createcategory", linkName: "Create category" },
-  ];
-
   const [categoriesList, setCategoriesList] =
     useState<CategoryProps[]>(storedCategories);
 
   return (
     <>
-      <Header pageName="Manage Categories" listOfLinks={headerLinks} />
+      <p className="font-bold my-4">Manage Categories</p>
+      <LinkButton
+        routeName={"/admin/createcategory"}
+        linkName={"Create category"}
+      />
       <CategoryList listOfCategories={categoriesList} />
     </>
   );

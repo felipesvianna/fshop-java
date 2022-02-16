@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface AuthenticationProps {
   token?: string;
   isAuthenticated?: boolean;

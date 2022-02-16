@@ -17,10 +17,6 @@ describe("LoginPage page", () => {
     );
   });
 
-  it("should contains Header component", () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
-  });
-
   it("should render withour errors", () => {
     expect(wrapper.text()).toContain("Login");
   });

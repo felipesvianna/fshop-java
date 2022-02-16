@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import Header from "../../components/Header/Header";
-import { LinkButtonProps } from "../../interfaces";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 const ManagePage: FC = () => {
-  const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/manageproducts", linkName: "Manage products" },
-  ];
   return (
     <>
-      <Header pageName="Manage F-Shop" listOfLinks={headerLinks} />
+      <p className="font-bold my-4">Manage F-Shop</p>
+      <LinkButton
+        routeName={"/admin/manageproducts"}
+        linkName={"Manage products"}
+      />
     </>
   );
 };

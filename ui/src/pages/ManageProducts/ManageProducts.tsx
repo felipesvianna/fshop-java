@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
-import Header from "../../components/Header/Header";
-import { LinkButtonProps } from "../../interfaces";
 import { ProductProps } from "../../interfaces";
 import ProductsList from "../../components/ProductsList/ProductsList";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 const ManageProducts: FC = () => {
   const storedProducts = [
@@ -33,18 +32,21 @@ const ManageProducts: FC = () => {
     },
   ];
 
-  const headerLinks: LinkButtonProps[] = [
-    { routeName: "/admin/createproduct", linkName: "Create product" },
-    { routeName: "/admin/managecategories", linkName: "Manage categories" },
-    { routeName: "/admin/manage", linkName: "Manage orders" },
-  ];
-
   const [productsList, setProductsList] =
     useState<ProductProps[]>(storedProducts);
 
   return (
     <>
-      <Header pageName="Manage Products" listOfLinks={headerLinks} />
+      <p className="font-bold my-4">Manage Products</p>
+      <LinkButton
+        routeName={"/admin/createproduct"}
+        linkName={"Create product"}
+      />
+      <LinkButton
+        routeName={"/admin/managecategories"}
+        linkName={"Manage categories"}
+      />
+      <LinkButton routeName={"/admin/manage"} linkName={"Manage orders"} />
       <ProductsList listOfProducts={productsList} />
     </>
   );

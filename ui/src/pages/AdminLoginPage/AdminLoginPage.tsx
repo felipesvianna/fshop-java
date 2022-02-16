@@ -5,7 +5,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 const AdminLoginPage: FC = () => {
   return (
     <>
-      <Header pageName="Login" />
+      <p className="font-bold my-4">Login</p>
       <LoginForm />
     </>
   );

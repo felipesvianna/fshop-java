@@ -1,11 +1,10 @@
 import React, { FC } from "react";
-import Header from "../../components/Header/Header";
 import UserRegisterForm from "../../components/UserRegisterForm/UserRegisterForm";
 
 const UserRegisterPage: FC = () => {
   return (
     <>
-      <Header pageName="Create Account" />
+      <p className="font-bold my-4">Create Account</p>
       <UserRegisterForm />
     </>
   );

@@ -39,5 +39,7 @@ export default function authenticationReducer(
         isAuthenticated: false,
         userData: undefined,
       };
+    default:
+      return state;
   }
 }
