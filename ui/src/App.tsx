@@ -15,6 +15,7 @@ import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
 import UserSignInPage from "./pages/UserSignInPage/UserSignInPage";
 import AuthenticationContextProvider from "./context/AuthenticationContext/AuthenticationContextProvider";
 import CartContextProvider from "./context/CartContext/CartContextProvider";
+import CartPage from "./pages/CartPage/CartPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <CartContextProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/admin" element={<AdminLoginPage />} />
           <Route path="/admin/createproduct" element={<CreateProductPage />} />
           <Route path="/userregister" element={<UserRegisterPage />} />

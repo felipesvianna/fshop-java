@@ -52,13 +52,13 @@ describe("Header component with Cart Context", () => {
   it("should show cart link with the number of items when the itemsList is not empty", () => {
     wrapper = customRender(startState);
     const expectedLength = startState.itemsList.length;
-    const link = wrapper.find("Link[to='/1/cart']");
+    const link = wrapper.find("Link[to='/cart']");
     expect(link.text()).toEqual("Cart(" + expectedLength + ")"); // ex: Cart(3)
   });
 
   it("should show cart link with 0 items when the itemsList is empty", () => {
     wrapper = customRender({ itemsList: [] });
-    const link = wrapper.find("Link[to='/1/cart']");
+    const link = wrapper.find("Link[to='/cart']");
     expect(link.text()).toEqual("Cart(0)");
   });
 });

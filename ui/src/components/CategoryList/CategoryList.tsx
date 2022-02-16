@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { CategoryProps } from "../../interfaces";
 import Category from "../Category/Category";
 
-interface CategoryListProps {
+type CategoryListProps = {
   listOfCategories?: CategoryProps[];
-}
+};
 const CategoryList: FC<CategoryListProps> = ({
   listOfCategories = [],
 }: CategoryListProps) => {

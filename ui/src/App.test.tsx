@@ -14,9 +14,19 @@ import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import UserRegisterPage from "./pages/UserRegisterPage/UserRegisterPage";
 import UserSignInPage from "./pages/UserSignInPage/UserSignInPage";
+import CartPage from "./pages/CartPage/CartPage";
 
 describe("App component", () => {
   let wrapper: ReactWrapper;
+
+  it('should show CartPage component for "/cart"', () => {
+    wrapper = mount(
+      <MemoryRouter initialEntries={["/cart"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(CartPage)).toHaveLength(1);
+  });
 
   it('should show ProductDetails component for "/signin"', () => {
     wrapper = mount(

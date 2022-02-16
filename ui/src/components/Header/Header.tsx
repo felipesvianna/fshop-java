@@ -40,7 +40,7 @@ const Header: FC<HeaderProps> = ({ pageName, listOfLinks }) => {
 
         {
           <LinkButton
-            routeName="/1/cart"
+            routeName="/cart"
             linkName={"Cart(" + itemsList.length + ")"}
           />
         }
