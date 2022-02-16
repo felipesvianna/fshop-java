@@ -1,3 +1,7 @@
+export interface CartProps {
+  itemsList: ProductProps[];
+}
+
 export interface AuthenticationProps {
   token?: string;
   isAuthenticated?: boolean;

@@ -40,7 +40,7 @@ describe("ProductsList component", () => {
       </MemoryRouter>
     );
     const rows = wrapper.find("tr");
-    expect(rows).toHaveLength(3 + 1); // 1 is for table
+    expect(rows).toHaveLength(3 + 1); // 1 is for table header
   });
 
   it("should render a table", () => {
