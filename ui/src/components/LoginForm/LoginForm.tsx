@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-interface LoginFormProps {
+type LoginFormProps = {
   handleSubmit?: (e: React.SyntheticEvent) => void;
-}
+};
 
 const LoginForm: FC<LoginFormProps> = ({ handleSubmit }) => {
   return (
