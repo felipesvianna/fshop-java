@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import { ProductProps } from "../../interfaces";
-import ProductsList from "../../components/ProductsList/ProductsList";
-import LinkButton from "../../components/LinkButton/LinkButton";
+import { ProductProps } from "../../../interfaces";
+import ProductsList from "../../../components/ProductsList/ProductsList";
+import LinkButton from "../../../components/LinkButton/LinkButton";
 
 const ManageProducts: FC = () => {
   const storedProducts = [
@@ -37,7 +37,12 @@ const ManageProducts: FC = () => {
 
   return (
     <>
-      <p className="font-bold my-4">Manage Products</p>
+      <header className="flex justify-between my-4">
+        <p className="font-bold my-4">Manage Products</p>
+        <div>
+          <LinkButton routeName="/logout" linkName="Logout" />
+        </div>
+      </header>
       <LinkButton
         routeName={"/admin/createproduct"}
         linkName={"Create product"}

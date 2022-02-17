@@ -10,7 +10,7 @@ const ProductsList: FC<ProductsListProps> = ({
   listOfProducts = [],
 }: ProductsListProps) => {
   if (Array.isArray(listOfProducts) && !listOfProducts.length) {
-    return <p>There is no products.</p>;
+    return <p>There are no products.</p>;
   }
 
   return (

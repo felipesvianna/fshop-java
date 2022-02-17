@@ -13,10 +13,14 @@ describe("ManagePage page", () => {
     );
   });
 
+  it("should show link to logout", () => {
+    const link = wrapper.find("Link[to='/logout']");
+    expect(link.text()).toEqual("Logout");
+  });
+
   it("should show Manage products link", () => {
-    const link = wrapper.find("Link").first();
+    const link = wrapper.find("Link[to='/admin/manageproducts']");
     expect(link.text()).toEqual("Manage products");
-    expect(link.prop("to")).toEqual("/admin/manageproducts");
   });
 
   it("should render wihout errors", () => {

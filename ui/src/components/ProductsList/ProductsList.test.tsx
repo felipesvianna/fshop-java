@@ -50,6 +50,6 @@ describe("ProductsList component", () => {
 
   it("should show message if listOfProducts is empty", () => {
     wrapper = shallow(<ProductsList listOfProducts={[]} />);
-    expect(wrapper.text()).toContain("There is no products.");
+    expect(wrapper.text()).toContain("There are no products.");
   });
 });

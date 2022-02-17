@@ -1,7 +1,6 @@
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
-import CategoryList from "../../components/CategoryList/CategoryList";
-import Header from "../../components/Header/Header";
+import CategoryList from "../../../components/CategoryList/CategoryList";
 import ManageCategories from "./ManageCategories";
 
 describe("ManageCategories page", () => {
@@ -15,10 +14,14 @@ describe("ManageCategories page", () => {
     );
   });
 
+  it("should show link to logout", () => {
+    const link = wrapper.find("Link[to='/logout']");
+    expect(link.text()).toEqual("Logout");
+  });
+
   it("should show Create category link", () => {
-    const link = wrapper.find("Link").first();
+    const link = wrapper.find("Link[to='/admin/createcategory']");
     expect(link.text()).toEqual("Create category");
-    expect(link.prop("to")).toEqual("/admin/createcategory");
   });
 
   it("should contains ProductsList component", () => {

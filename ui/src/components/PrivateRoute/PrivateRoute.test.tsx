@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import { FC } from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import AdminLoginPage from "../../pages/AdminLoginPage/AdminLoginPage";
+import AdminLoginPage from "../../pages/Admin/AdminLoginPage/AdminLoginPage";
 import PrivateRoute from "./PrivateRoute";
 
 type ComponentMockProps = {

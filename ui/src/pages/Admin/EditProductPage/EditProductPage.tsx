@@ -1,8 +1,9 @@
 import React, { FC, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import ProductForm from "../../components/Product/ProductForm";
-import { ProductProps } from "../../interfaces";
+import Header from "../../../components/Header/Header";
+import LinkButton from "../../../components/LinkButton/LinkButton";
+import ProductForm from "../../../components/Product/ProductForm";
+import { ProductProps } from "../../../interfaces";
 
 const EditProductPage: FC = () => {
   const initialState = {
@@ -30,7 +31,12 @@ const EditProductPage: FC = () => {
 
   return (
     <>
-      <Header pageName="Edit Product" />
+      <header className="flex justify-between my-4">
+        <p className="font-bold my-4">Edit Product</p>
+        <div>
+          <LinkButton routeName="/logout" linkName="Logout" />
+        </div>
+      </header>
       <ProductForm productData={productToEdit} />
     </>
   );

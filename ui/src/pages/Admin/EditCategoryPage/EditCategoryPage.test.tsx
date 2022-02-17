@@ -1,7 +1,7 @@
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
-import CategoryForm from "../../components/Category/CategoryForm";
-import Header from "../../components/Header/Header";
+import CategoryForm from "../../../components/Category/CategoryForm";
+import Header from "../../../components/Header/Header";
 import EditCategoryPage from "./EditCategoryPage";
 
 describe("EditCategoryPage page", () => {
@@ -15,8 +15,9 @@ describe("EditCategoryPage page", () => {
     );
   });
 
-  it("should contains Header component", () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
+  it("should show link to logout", () => {
+    const link = wrapper.find("Link[to='/logout']");
+    expect(link.text()).toEqual("Logout");
   });
 
   it("should contains CategoryForm component", () => {
