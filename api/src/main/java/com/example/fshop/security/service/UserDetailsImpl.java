@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/*
+* Convert Set<Role> into List<GrantedAuthority> is needed
+* to work with Spring Security and Authentication object later.
+
+UserDetailsService will be used for getting UserDetails object.
+* */
+
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +40,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
+        /*Convert Set<Role> into List<GrantedAuthority> is needed
+         to work with Spring Security and Authentication object later.*/
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());

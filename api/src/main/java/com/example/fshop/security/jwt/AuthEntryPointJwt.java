@@ -8,6 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+
+/*
+The commence() method is Overrided.
+This method will be triggered anytime unauthenticated User requests a secured HTTP resource
+and an AuthenticationException is thrown.
+* */
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
