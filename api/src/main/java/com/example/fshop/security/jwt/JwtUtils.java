@@ -13,10 +13,13 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
     @Value("${fshop.app.jwtSecret}")
     private String jwtSecret;
+
     @Value("${fshop.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()

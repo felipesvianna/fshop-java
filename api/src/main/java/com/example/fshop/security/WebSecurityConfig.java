@@ -1,4 +1,5 @@
 package com.example.fshop.security;
+import com.example.fshop.repository.UserRepository;
 import com.example.fshop.security.jwt.AuthEntryPointJwt;
 import com.example.fshop.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.fshop.security.jwt.AuthTokenFilter;
+import org.springframework.stereotype.Component;
+
+import static java.lang.String.format;
 
 /*
 *
@@ -52,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Autowired
-        private AuthEntryPointJwt unauthorizedHandler;
+    private AuthEntryPointJwt unauthorizedHandler;
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();

@@ -1,8 +1,7 @@
-package com.fshop.spring.jwt.mongodb.models;
-import com.example.fshop.models.ERoles;
+package com.example.fshop.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-@Document(collection = "roles")
+@Document("roles")
 public class Role {
     @Id
     private String id;

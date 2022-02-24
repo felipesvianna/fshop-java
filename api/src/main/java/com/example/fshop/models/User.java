@@ -1,5 +1,4 @@
 package com.example.fshop.models;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,10 +8,14 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collection = "user")
+@Document("user")
 public class User {
     @Id
     private String id;
+
+    @NotBlank
+    @Size(max = 20)
+    private String username; // required by spring security
 
     @NotBlank
     @Size(max=50)
@@ -36,11 +39,12 @@ public class User {
     private String password;
 
     @DBRef
-    private Set<ERoles> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {}
 
-    public User(String firstName, String lastName, String address, String email, String password) {
+    public User(String username, String firstName, String lastName, String address, String email, String password) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -96,10 +100,19 @@ public class User {
         this.password = password;
     }
 
-    public Set<ERoles> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
-    public void setRoles(Set<ERoles> roles) {
+
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -29,7 +29,13 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String id, String firstName, String lastName, String address, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(String id,
+                           String firstName,
+                           String lastName,
+                           String address,
+                           String email,
+                           String password,
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
         /*Convert Set<Role> into List<GrantedAuthority> is needed
          to work with Spring Security and Authentication object later.*/
         List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
@@ -58,7 +64,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getFirstName();
+        return this.getEmail();
     }
 
     @Override
