@@ -37,11 +37,11 @@ public class AuthController {
     PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
 
         if(userService.emailAlreadyExists(signupRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ErrorResponse(HttpStatus.CONFLICT.value(), "Email already exists"));
+                    .body(new ErrorResponse(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(), "Email already exists"));
         }
 
         User newUser = new User(
@@ -55,23 +55,18 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
         Set<String> rolesList = signupRequest.getRoles();
 
-        try{
-            rolesList.forEach(role -> {
-                switch (role) {
-                    case "ADMIN":
-                        Role adminRole = roleRepository.findByName(ERoles.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Role not found"));
-                        roles.add(adminRole);
-                    default:
-                        Role clientRole = roleRepository.findByName(ERoles.ROLE_CLIENT)
-                                .orElseThrow(() -> new RuntimeException("Role not found"));
-                        roles.add(clientRole);
-                }
-            });
-        }catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
-        }
+        rolesList.forEach(role -> {
+            switch (role) {
+                case "ADMIN":
+                    Role adminRole = roleRepository.findByName(ERoles.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Role not found"));
+                    roles.add(adminRole);
+                default:
+                    Role clientRole = roleRepository.findByName(ERoles.ROLE_CLIENT)
+                            .orElseThrow(() -> new RuntimeException("Role not found"));
+                    roles.add(clientRole);
+            }
+        });
 
         newUser.setRoles(roles);
         userService.registerNewUser(newUser);

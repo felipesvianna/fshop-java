@@ -3,8 +3,10 @@ package com.example.fshop.controller;
 import com.example.fshop.models.ERoles;
 import com.example.fshop.models.Role;
 import com.example.fshop.models.User;
+import com.example.fshop.payload.ErrorResponse;
 import com.example.fshop.repository.RoleRepository;
 import com.example.fshop.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,6 +36,9 @@ import java.util.Set;
 public class AuthControllerTests {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     UserRepository userRepository;
@@ -90,18 +96,25 @@ public class AuthControllerTests {
     @Test
     void shouldReturnResponseError409WhenEmailAlreadyExists() throws Exception{
         String userEmail = userInstance.getEmail();
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.getReasonPhrase(), "Email already exists");
+
         when(userRepository.existsByEmail(userEmail)).thenReturn(true);
 
         mockMvc.perform(post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contentData))
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
 
         verify(userRepository, times(0)).save(userInstance);
     }
 
     @Test
     void shouldReturnResponseError500WhenUserRoleDoNotExists() throws Exception{
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), "Role not found");
+
         when(userRepository.existsByEmail(userInstance.getEmail())).thenReturn(false);
         when(roleRepository.findByName(ERoles.ROLE_CLIENT)).thenReturn(Optional.empty());
 
@@ -109,7 +122,7 @@ public class AuthControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contentData))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string("{\"code\":500,\"message\":\"Role not found\"}"));
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
 
         verify(userRepository, times(0)).save(userInstance);
     }

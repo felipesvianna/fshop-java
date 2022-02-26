@@ -1,23 +1,33 @@
 package com.example.fshop.payload;
 
-import java.util.Set;
+import org.springframework.http.HttpStatus;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ErrorResponse {
-    private int code;
+    private int status;
     private String message;
+    private List<String> errors;
 
-
-    public ErrorResponse(int code, String message) {
-        this.code = code;
+    public ErrorResponse(int status, String message, List<String> errors) {
+        this.status = status;
         this.message = message;
+        this.errors = errors;
     }
 
-    public int getCode() {
-        return code;
+    public ErrorResponse(int status, String message, String error) {
+        this.status = status;
+        this.message = message;
+        this.errors = Arrays.asList(error);
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -26,5 +36,13 @@ public class ErrorResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
     }
 }
