@@ -112,13 +112,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
+
         StringBuilder builder = new StringBuilder();
-        builder.append(ex.getContentType());
-        builder.append(" media type is not supported. Supported media types are ");
+        builder.append(ex.getLocalizedMessage() + ".");
+        builder.append(" Supported media types are ");
         ex.getSupportedMediaTypes().forEach(t -> builder.append(t + ", "));
 
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(),
-                builder.substring(0, builder.length() - 2), ex.getLocalizedMessage());
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE.getReasonPhrase(), builder.substring(0, builder.length() - 2));
         return new ResponseEntity<Object>(
                 errorResponse, new HttpHeaders(), HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }

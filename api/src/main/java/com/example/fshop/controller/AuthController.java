@@ -41,7 +41,8 @@ public class AuthController {
 
         if(userService.emailAlreadyExists(signupRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ErrorResponse(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(), "Email already exists"));
+                    .body(new ErrorResponse(HttpStatus.CONFLICT.value(),
+                            HttpStatus.CONFLICT.getReasonPhrase(), "Email already exists"));
         }
 
         User newUser = new User(
