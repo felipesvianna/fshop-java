@@ -1,22 +1,13 @@
-package com.example.fshop.models;
-import com.fasterxml.jackson.annotation.JsonFilter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.example.fshop.payload;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document("user")
-public class User {
-    @Id
-    private String id;
-
-    @NotBlank
-    @Size(max = 20)
-    private String username; // required by spring security
+public class SignupRequest {
+    private String username;
 
     @NotBlank
     @Size(max=50)
@@ -38,26 +29,14 @@ public class User {
     @Size(max=120)
     private String password;
 
-    @DBRef
-    private Set<Role> roles = new HashSet<>();
+    private Set<String> roles = new HashSet<>();
 
-    public User() {}
-
-    public User(String username, String firstName, String lastName, String address, String email, String password) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.email = email;
-        this.password = password;
+    public String getUsername() {
+        return this.getEmail();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername() {
+        this.username = this.getEmail();
     }
 
     public String getFirstName() {
@@ -100,19 +79,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

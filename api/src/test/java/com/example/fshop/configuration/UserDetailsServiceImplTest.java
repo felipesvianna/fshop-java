@@ -6,11 +6,9 @@ import com.example.fshop.models.User;
 import com.example.fshop.repository.UserRepository;
 import com.example.fshop.security.service.UserDetailsImpl;
 import com.example.fshop.security.service.UserDetailsServiceImpl;
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -55,7 +53,6 @@ class UserDetailsServiceImplTest {
 
     @Test
     void shouldFindUserByEmail() {
-
         UserDetails expectedUser = UserDetailsImpl.build(userInstance);
 
         when(userRepository.findUserByEmail("asouza@email.com")).thenReturn(Optional.of(userInstance));
@@ -67,7 +64,6 @@ class UserDetailsServiceImplTest {
 
     @Test
     void shouldThrownAnExceptionWhenDoNotFindUserByEmail() {
-
         when(userRepository.findUserByEmail("asouza@email.com")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> userDetailsService.loadUserByUsername("asouza@email.com"))
