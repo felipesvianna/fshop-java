@@ -73,7 +73,6 @@ public class AuthControllerTests {
             + "]"
             + "}";
 
-
     @Test
     void shouldRegisterNewUserWithValidData() throws Exception{
         Role role = new Role(ERoles.ROLE_CLIENT);

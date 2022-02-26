@@ -1,7 +1,5 @@
 package com.example.fshop.payload;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.Arrays;
 import java.util.List;
 

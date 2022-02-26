@@ -39,7 +39,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         ErrorResponse errorResponse =
-                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), errors);
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), errors);
 
         return handleExceptionInternal(
                 ex, errorResponse, headers, HttpStatus.BAD_REQUEST, request);
@@ -52,7 +52,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         String error = ex.getParameterName() + " parameter is missing";
 
         ErrorResponse errorResponse =
-                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), error);
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), error);
 
         return new ResponseEntity<Object>(
                 errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -68,7 +68,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         ErrorResponse errorResponse =
-                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), errors);
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), errors);
 
         return new ResponseEntity<Object>(
                 errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -81,7 +81,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getName() + " should be of type " + ex.getRequiredType().getName();
 
         ErrorResponse errorResponse =
-                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), error);
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), error);
 
         return new ResponseEntity<Object>(
                 errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -93,14 +93,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(ex.getMethod());
-        builder.append(
-                " method is not supported for this request. Supported methods are ");
-        ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
+
+        String error = ex.getMethod() + " method is not supported for this request.";
 
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED.value(),
-                builder.toString(), ex.getLocalizedMessage());
+                HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase(), error);
 
         return new ResponseEntity<Object>(
                 errorResponse, new HttpHeaders(), HttpStatus.METHOD_NOT_ALLOWED);
