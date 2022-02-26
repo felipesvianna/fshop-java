@@ -19,10 +19,10 @@ public class User {
     private String username; // required by spring security
 
     @NotBlank
-    @Size(max=50)
+    @Size(min = 3, max=50)
     private String firstName;
 
-    @Size(max=50)
+    @Size(min = 3, max=50)
     private String lastName;
 
     @NotBlank
