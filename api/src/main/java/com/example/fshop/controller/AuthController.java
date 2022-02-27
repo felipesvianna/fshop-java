@@ -4,24 +4,28 @@ import com.example.fshop.models.ERoles;
 import com.example.fshop.models.Role;
 import com.example.fshop.models.User;
 import com.example.fshop.payload.ErrorResponse;
+import com.example.fshop.payload.JwtResponse;
+import com.example.fshop.payload.LoginRequest;
 import com.example.fshop.payload.SignupRequest;
 import com.example.fshop.repository.RoleRepository;
-import com.example.fshop.repository.UserRepository;
+import com.example.fshop.security.service.UserDetailsImpl;
 import com.example.fshop.service.UserService;
+import com.example.fshop.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -35,6 +39,42 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
+    /*
+    @PostMapping("/logout")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity logoutUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(null);
+        return ResponseEntity.ok(new MessageResponse("logout successful"));
+    }
+    */
+
+    @PostMapping("/signin")
+    public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getEmail(),
+                roles));
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest) {

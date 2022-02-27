@@ -25,7 +25,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -33,12 +39,17 @@ import java.util.Set;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ContextConfiguration
+@WebAppConfiguration
 public class AuthControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private WebApplicationContext context;
 
     @MockBean
     UserRepository userRepository;
@@ -60,6 +71,11 @@ public class AuthControllerTests {
                 "senhasenha");
         userInstance.setId("1");
         userInstance.setRoles(authorities);
+
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
 
     private final String contentData = "{"
@@ -126,3 +142,4 @@ public class AuthControllerTests {
         verify(userRepository, times(0)).save(userInstance);
     }
 }
+
