@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SignupRequest {
-    private String username;
-
     @NotBlank
     @Size(min = 3, max=50)
     private String firstName;
@@ -33,10 +31,6 @@ public class SignupRequest {
 
     public String getUsername() {
         return this.getEmail();
-    }
-
-    public void setUsername() {
-        this.username = this.getEmail();
     }
 
     public String getFirstName() {
