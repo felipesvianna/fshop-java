@@ -89,6 +89,10 @@ public class AuthControllerTests {
             + "]"
             + "}";
 
+    // TODO: SignIn endpoint test
+
+    // Signout endpoint is tested by Spring Security
+
     @Test
     void shouldRegisterNewUserWithValidData() throws Exception{
         Role role = new Role(ERoles.ROLE_CLIENT);
