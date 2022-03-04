@@ -4,13 +4,21 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 @AutoConfigureMockMvc
 public class CustomRestExceptionHandlerTest {
 
     private static final String URL_PREFIX = "http://localhost:8080";
+
+    @Autowired
+    private Environment env;
 
     // TODO: MissingServletRequestParameterException test
     // TODO: ConstraintViolationException test
@@ -34,7 +42,7 @@ public class CustomRestExceptionHandlerTest {
 
         Response response = RestAssured.given()
                 .body(contentData)
-                .post(URL_PREFIX + "/api/auth/signup");
+                .post(URL_PREFIX + env.getProperty("fshop.app.apiUrlBase") + "/auth/signup");
 
         assertEquals(415, response.getStatusCode());
         assertEquals("Unsupported Media Type", response.jsonPath().getString("message"));
@@ -57,7 +65,7 @@ public class CustomRestExceptionHandlerTest {
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(contentData)
-                .post(URL_PREFIX + "/api/auth/signup");
+                .post(URL_PREFIX + env.getProperty("fshop.app.apiUrlBase") + "/auth/signup");
 
         assertEquals(400, response.getStatusCode());
         assertEquals("Bad Request", response.jsonPath().getString("message"));
@@ -69,11 +77,11 @@ public class CustomRestExceptionHandlerTest {
     void shouldReturnNotFoundWhenThrownNoHandlerFoundException() {
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .get(URL_PREFIX + "/api/auth/dontexist");
+                .get(URL_PREFIX + env.getProperty("fshop.app.apiUrlBase") + "/auth/dontexist");
 
         assertEquals(404, response.getStatusCode());
         assertEquals("Not Found", response.jsonPath().getString("message"));
-        assertEquals("No handler found for GET /api/auth/dontexist",
+        assertEquals("No handler found for GET " + env.getProperty("fshop.app.apiUrlBase") + "/auth/dontexist",
                 response.jsonPath().getString("errors[0]"));
     }
 
@@ -93,7 +101,7 @@ public class CustomRestExceptionHandlerTest {
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(contentData)
-                .get(URL_PREFIX + "/api/auth/signup");
+                .get(URL_PREFIX + env.getProperty("fshop.app.apiUrlBase") + "/auth/signup");
 
         assertEquals(405, response.getStatusCode());
         assertEquals("Method Not Allowed", response.jsonPath().getString("message"));

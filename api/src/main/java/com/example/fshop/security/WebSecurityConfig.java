@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .logout()
-                    .logoutUrl("/api/auth/signout")
+                    .logoutUrl("/api/v1/auth/signout")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
@@ -95,8 +95,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/test/**").permitAll()
+                    .antMatchers("/api/v1/auth/**").permitAll()
+                    .antMatchers("/api/v1/test/**").permitAll()
+                .antMatchers("/api/v1/category/**").permitAll()
                     .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

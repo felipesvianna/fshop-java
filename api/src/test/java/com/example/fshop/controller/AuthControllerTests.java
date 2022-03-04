@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -50,6 +51,9 @@ public class AuthControllerTests {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private Environment env;
 
     @MockBean
     UserRepository userRepository;
@@ -100,7 +104,7 @@ public class AuthControllerTests {
         when(roleRepository.findByName(ERoles.ROLE_CLIENT)).thenReturn(Optional.of(role));
         when(userRepository.save(userInstance)).thenReturn(userInstance);
 
-        mockMvc.perform(post("/api/auth/signup")
+        mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase") + "/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(contentData))
                 .andExpect(status().isCreated());
@@ -120,7 +124,7 @@ public class AuthControllerTests {
 
         when(userRepository.existsByEmail(userEmail)).thenReturn(true);
 
-        mockMvc.perform(post("/api/auth/signup")
+        mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase")+"/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contentData))
                 .andExpect(status().isConflict())
@@ -137,7 +141,7 @@ public class AuthControllerTests {
         when(userRepository.existsByEmail(userInstance.getEmail())).thenReturn(false);
         when(roleRepository.findByName(ERoles.ROLE_CLIENT)).thenReturn(Optional.empty());
 
-        mockMvc.perform(post("/api/auth/signup")
+        mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase")+"/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(contentData))
                 .andExpect(status().isInternalServerError())
