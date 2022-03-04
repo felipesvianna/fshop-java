@@ -20,17 +20,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -57,6 +56,8 @@ public class CategoryControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    final String contentData = "{\"name\":\"Books\"}";
+
     @BeforeEach
     void setUp() {
         categoryInstance = new Category("Books");
@@ -65,12 +66,122 @@ public class CategoryControllerTest {
     }
 
     @Test
+    void shouldReturn404WHenCantFindCategoryOnDeleteHTTPMethodRequest() throws Exception{
+        String categoryId = "2534";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + categoryId;
+
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found");
+
+        when(categoryService.findCategoryById(categoryId)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(contentData))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
+
+        verify(categoryService, times(0)).saveCategory(any());
+    }
+
+    @Test
+    void shouldReturn204OnSuccessDeleteHTTPMethodRequest() throws Exception{
+        String categoryId = "1";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + categoryId;
+        Category updatedCategory = new Category("Books", false);
+        updatedCategory.setId(categoryId);
+
+        when(categoryService.findCategoryById(categoryId)).thenReturn(Optional.of(categoryInstance));
+        when(categoryService.saveCategory(updatedCategory)).thenReturn(updatedCategory);
+
+        mockMvc.perform(delete(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(contentData))
+                .andExpect(status().isNoContent());
+
+        verify(categoryService).saveCategory(updatedCategory);
+    }
+
+    @Test
+    void shouldReturnResponseError404AndWhenACategoryIsNotFound() throws Exception{
+        String idToSearch = "23421";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + idToSearch;
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found");
+
+        when(categoryService.findCategoryById(idToSearch)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
+    }
+
+    @Test
+    void shouldReturnCategoryWhenCallGetHTTPMethodWithIdAsParameter() throws Exception{
+        String idToSearch = "1";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + idToSearch;
+
+        when(categoryService.findCategoryById(idToSearch)).thenReturn(Optional.of(categoryInstance));
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(categoryInstance)));
+
+        verify(categoryService).findCategoryById(idToSearch);
+    }
+
+    @Test
+    void shouldReturnResponseError404AndWhenCanNotUpdateCategoryName() throws Exception{
+        String contentData = "{\"name\":\"Office\"}";
+        String categoryId = "5432";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + categoryId;
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found");
+
+        when(categoryService.findCategoryById(categoryId)).thenReturn(Optional.empty());
+
+        mockMvc.perform(put(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(contentData))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
+
+        verify(categoryService).findCategoryById(categoryId);
+    }
+
+    @Test
+    void shouldUpdateCategoryNameWhenCallPutHTTPMethod() throws Exception{
+        String contentData = "{\"name\":\"Office\"}";
+        String categoryId = "1";
+        String requestUri = env.getProperty("fshop.app.apiUrlBase") + "/category/" + categoryId;
+        Category updatedCategory = new Category("Office", true);
+        updatedCategory.setId(categoryId);
+
+        when(categoryService.findCategoryById(categoryId)).thenReturn(Optional.of(categoryInstance));
+        when(categoryService.saveCategory(updatedCategory)).thenReturn(updatedCategory);
+
+        mockMvc.perform(put(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(contentData))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(updatedCategory)));
+
+        verify(categoryService).saveCategory(updatedCategory);
+    }
+
+    @Test
     void shouldReturnAListOfCategoriesOnGetHTTPMethod() throws Exception{
         List<Category> categoryList = new ArrayList<>();
+        Category anotherCategory = new Category("Office", true);
+        anotherCategory.setId("2");
         categoryList.add(categoryInstance);
+        categoryList.add(anotherCategory);
 
         String expectedContent = "["
-                + "{" + "\"id\":\"1\"," + "\"name\":\"Books\"," + "\"active\":true" +"}"
+                + "{" + "\"id\":\"1\"," + "\"name\":\"Books\"," + "\"active\":true" +"},"
+                + "{" + "\"id\":\"2\"," + "\"name\":\"Office\"," + "\"active\":true" +"}"
                 + "]";
 
         when(categoryService.getAllCategories()).thenReturn(categoryList);
@@ -83,10 +194,9 @@ public class CategoryControllerTest {
 
     @Test
     void shouldRegisterNewCategoryWithValidName() throws Exception {
-        String contentData = "{\"name\":\"Books\"}";
         String expectedContent = objectMapper.writeValueAsString(categoryInstance);
 
-        when(categoryService.registerNewCategory(any())).thenReturn(categoryInstance);
+        when(categoryService.saveCategory(any())).thenReturn(categoryInstance);
 
         mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase") + "/category/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -95,7 +205,7 @@ public class CategoryControllerTest {
                 .andExpect(content().string(expectedContent));
 
         ArgumentCaptor<Category> argumentCaptor = ArgumentCaptor.forClass(Category.class);
-        verify(categoryService).registerNewCategory(argumentCaptor.capture());
+        verify(categoryService).saveCategory(argumentCaptor.capture());
     }
 
     @Test
@@ -111,17 +221,16 @@ public class CategoryControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
 
-        verify(categoryService, times(0)).registerNewCategory(any());
+        verify(categoryService, times(0)).saveCategory(any());
     }
 
     @Test
     void shouldReturnResponseError409WhenCategoryAlreadyExists() throws Exception{
         String categoryName = categoryInstance.getName();
-        String contentData = "{\"name\":\"Books\"}";
         ErrorResponse expectedContent = new ErrorResponse(HttpStatus.CONFLICT.value(),
                 HttpStatus.CONFLICT.getReasonPhrase(), "Category already exists");
 
-        when(categoryService.categoryAlreadyExists(categoryName)).thenReturn(true);
+        when(categoryService.findCategoryByName(categoryName)).thenReturn(Optional.of(categoryInstance));
 
         mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase") + "/category/")
                         .contentType(MediaType.APPLICATION_JSON)

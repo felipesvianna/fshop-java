@@ -1,7 +1,6 @@
 package com.example.fshop.service;
 
 import com.example.fshop.models.Category;
-import com.example.fshop.models.User;
 import com.example.fshop.repository.CategoryRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,14 +10,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -34,9 +32,31 @@ public class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        categoryInstance = new Category("categoryName");
+        categoryInstance = new Category("Cars");
         categoryInstance.setActive(true);
         categoryInstance.setId("1");
+    }
+
+    @Test
+    void shouldCallFindByNameMethodWhenCallGetCategoryMethod() {
+        when(categoryRepository.findByName(categoryInstance.getName())).thenReturn(Optional.of(categoryInstance));
+
+        Optional<Category> categoryFound = categoryService.findCategoryByName("Cars");
+
+        verify(categoryRepository).findByName("Cars");
+
+        assertThat(categoryFound.get()).isEqualTo(categoryInstance);
+    }
+
+    @Test
+    void shouldCallFindByIdMethodWhenCallGetCategoryMethod() {
+        when(categoryRepository.findById(categoryInstance.getId())).thenReturn(Optional.of(categoryInstance));
+
+        Optional<Category> categoryFound = categoryService.findCategoryById("1");
+
+        verify(categoryRepository).findById("1");
+
+        assertThat(categoryFound.get()).isEqualTo(categoryInstance);
     }
 
     @Test
@@ -44,11 +64,11 @@ public class CategoryServiceTest {
         List<Category> expectedList = new ArrayList<>();
         expectedList.add(categoryInstance);
 
-        when(categoryRepository.findAll()).thenReturn(expectedList);
+        when(categoryRepository.findByIsActiveTrue()).thenReturn(expectedList);
 
         List<Category> categoriesFound = categoryService.getAllCategories();
 
-        verify(categoryRepository).findAll();
+        verify(categoryRepository).findByIsActiveTrue();
 
         assertEquals(expectedList, categoriesFound);
     }
@@ -58,7 +78,7 @@ public class CategoryServiceTest {
         Category newCategory = new Category("Books", true);
         when(categoryRepository.save(categoryInstance)).thenReturn(categoryInstance);
 
-        Category createdCategory = categoryService.registerNewCategory(categoryInstance);
+        Category createdCategory = categoryService.saveCategory(categoryInstance);
 
         verify(categoryRepository).save(categoryInstance);
 
