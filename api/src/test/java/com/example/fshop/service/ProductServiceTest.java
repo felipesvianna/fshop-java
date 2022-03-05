@@ -25,6 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +48,19 @@ public class ProductServiceTest {
         productCategory.setId("1");
         BigDecimal price = new BigDecimal("299.00");
         productInstance = new Product(name, description, price, 5, productCategory);
+    }
+
+    @Test
+    void shouldCallFindAllMethodWhenCallGetAllCategoriesMethod() {
+        List<Product> expectedList = new ArrayList<>();
+        expectedList.add(productInstance);
+
+        when(productRepository.findByIsActiveTrue()).thenReturn(expectedList);
+
+        List<Product> productsFound = productService.getAllProducts();
+
+        assertEquals(expectedList, productsFound);
+        verify(productRepository).findByIsActiveTrue();
     }
 
     @Test

@@ -61,6 +61,33 @@ public class ProductControllerTest {
         productCategory.setId("1");
         BigDecimal price = new BigDecimal("299.00");
         productInstance = new Product(name, description, price, 5, productCategory);
+        productInstance.setActive(true);
+    }
+
+    @Test
+    void shouldReturnAListOfProductsOnGetHTTPMethod() throws Exception{
+        List<Product> productList = new ArrayList<>();
+
+        Product anotherProduct = new Product(
+                "Dog supplies automatic feeder",
+                "water dispenser 3.8L portable dog water bottle bowl (Color : A, Size : 3.8L) ",
+                new BigDecimal("99.00"),
+                5,
+                new Category("Pet Supplies", true));
+        anotherProduct.setId("2");
+        anotherProduct.setActive(true);
+
+        productList.add(productInstance);
+        productList.add(anotherProduct);
+
+        String expectedContent = objectMapper.writeValueAsString(productList);
+
+        when(productService.getAllProducts()).thenReturn(productList);
+
+        mockMvc.perform(get(API_URI_RESOURCE)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expectedContent));
     }
 
     @Test

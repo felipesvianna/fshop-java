@@ -1,5 +1,6 @@
 package com.example.fshop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -30,6 +31,9 @@ public class Product {
 
     @DBRef
     private Category category;
+
+    @JsonIgnore
+    private Boolean isActive;
 
     public Product() {}
 
@@ -87,6 +91,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     @Override

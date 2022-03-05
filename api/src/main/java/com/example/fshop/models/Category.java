@@ -1,5 +1,6 @@
 package com.example.fshop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +18,7 @@ public class Category {
     private String name;
 
     @NotBlank
+    @JsonIgnore
     private Boolean isActive;
 
     public Category() {}
