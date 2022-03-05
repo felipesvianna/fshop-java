@@ -43,9 +43,8 @@ public class CategoryServiceTest {
 
         Optional<Category> categoryFound = categoryService.findCategoryByName("Cars");
 
-        verify(categoryRepository).findByName("Cars");
-
         assertThat(categoryFound.get()).isEqualTo(categoryInstance);
+        verify(categoryRepository).findByName("Cars");
     }
 
     @Test
@@ -54,9 +53,8 @@ public class CategoryServiceTest {
 
         Optional<Category> categoryFound = categoryService.findCategoryById("1");
 
-        verify(categoryRepository).findById("1");
-
         assertThat(categoryFound.get()).isEqualTo(categoryInstance);
+        verify(categoryRepository).findById("1");
     }
 
     @Test
@@ -68,9 +66,18 @@ public class CategoryServiceTest {
 
         List<Category> categoriesFound = categoryService.getAllCategories();
 
-        verify(categoryRepository).findByIsActiveTrue();
-
         assertEquals(expectedList, categoriesFound);
+        verify(categoryRepository).findByIsActiveTrue();
+    }
+
+    @Test
+    void shouldCallExistsByNameMethodWhenCallCategoryAlreadyExistsMethod() {
+        Category categoryInstance = new Category("categoryName");
+
+        when(categoryRepository.existsByName(categoryInstance.getName())).thenReturn(true);
+
+        assertEquals(true, categoryService.categoryAlreadyExists("categoryName"));
+        verify(categoryRepository).existsByName("categoryName");
     }
 
     @Test
@@ -80,17 +87,7 @@ public class CategoryServiceTest {
 
         Category createdCategory = categoryService.saveCategory(categoryInstance);
 
-        verify(categoryRepository).save(categoryInstance);
-
         assertThat(createdCategory).isEqualTo(categoryInstance);
-    }
-
-    @Test
-    void shouldReturnTrueWhenACategoryNameAlreadyExists() {
-        Category categoryInstance = new Category("categoryName");
-
-        when(categoryRepository.existsByName(categoryInstance.getName())).thenReturn(true);
-
-        assertEquals(true, categoryService.categoryAlreadyExists("categoryName"));
+        verify(categoryRepository).save(categoryInstance);
     }
 }

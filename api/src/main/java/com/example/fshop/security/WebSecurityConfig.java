@@ -2,6 +2,7 @@ package com.example.fshop.security;
 import com.example.fshop.security.jwt.AuthEntryPointJwt;
 import com.example.fshop.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
+    @Value("${fshop.app.apiUrlBase}")
+    private String API_URI_BASE;
+
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
@@ -82,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .logout()
-                    .logoutUrl("/api/v1/auth/signout")
+                    .logoutUrl(API_URI_BASE + "/auth/signout")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
                     .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
@@ -95,9 +99,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/api/v1/auth/**").permitAll()
-                    .antMatchers("/api/v1/test/**").permitAll()
-                .antMatchers("/api/v1/category/**").permitAll()
+                    .antMatchers(API_URI_BASE + "/auth/**").permitAll()
+                    .antMatchers(API_URI_BASE + "/test/**").permitAll()
+                    .antMatchers(API_URI_BASE + "/categories/**").permitAll()
+                    .antMatchers(API_URI_BASE + "/products/**").permitAll()
                     .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

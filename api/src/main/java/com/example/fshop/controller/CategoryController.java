@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/category")
+@RequestMapping("${fshop.app.apiUrlBase}/categories")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
