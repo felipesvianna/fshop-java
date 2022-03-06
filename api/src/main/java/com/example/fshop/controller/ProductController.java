@@ -6,7 +6,6 @@ import com.example.fshop.payload.ErrorResponse;
 import com.example.fshop.payload.ProductRequest;
 import com.example.fshop.service.CategoryService;
 import com.example.fshop.service.ProductService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,17 @@ public class ProductController {
 
     @Autowired
     CategoryService categoryService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getProduct(@PathVariable(value = "id") String id){
+        Optional<Product> productFound = productService.findProductById(id);
+        if(productFound.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                            HttpStatus.NOT_FOUND.getReasonPhrase(), "Product not found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productFound.get());
+    }
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {

@@ -23,7 +23,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeCategory(@PathVariable(value = "id") String id) {
         Optional<Category> categoryFound = categoryService.findCategoryById(id);
-        if(!categoryFound.isPresent()) {
+        if(categoryFound.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
                             HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found"));
@@ -37,7 +37,7 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCategory(@PathVariable(value = "id") String id){
         Optional<Category> categoryFound = categoryService.findCategoryById(id);
-        if(!categoryFound.isPresent()){
+        if(categoryFound.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
                             HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found"));
@@ -51,7 +51,7 @@ public class CategoryController {
             @PathVariable(value = "id") String id)
     {
         Optional<Category> categoryFound = categoryService.findCategoryById(id);
-        if(!categoryFound.isPresent()) {
+        if(categoryFound.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
                             HttpStatus.NOT_FOUND.getReasonPhrase(), "Category not found"));

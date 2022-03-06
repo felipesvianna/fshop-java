@@ -12,14 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -27,6 +19,7 @@ import static org.mockito.Mockito.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +41,17 @@ public class ProductServiceTest {
         productCategory.setId("1");
         BigDecimal price = new BigDecimal("299.00");
         productInstance = new Product(name, description, price, 5, productCategory);
+    }
+
+    @Test
+    void shouldCallFindByIdMethodWhenCallGetProductMethod() {
+        productInstance.setId("1");
+        when(productRepository.findById(productInstance.getId())).thenReturn(Optional.of(productInstance));
+
+        Optional<Product> productFound = productService.findProductById("1");
+
+        assertThat(productFound.get()).isEqualTo(productInstance);
+        verify(productRepository).findById("1");
     }
 
     @Test

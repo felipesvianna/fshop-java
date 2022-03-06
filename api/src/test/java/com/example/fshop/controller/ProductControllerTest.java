@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -65,6 +63,38 @@ public class ProductControllerTest {
     }
 
     @Test
+    void shouldReturnResponseError404AndWhenAProductIsNotFound() throws Exception{
+        String idToSearch = "23421";
+        String requestUri = API_URI_RESOURCE + idToSearch;
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(), "Product not found");
+
+        when(productService.findProductById(idToSearch)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
+
+        verify(productService).findProductById(idToSearch);
+    }
+
+    @Test
+    void shouldReturnProductWhenCallGetHTTPMethodWithIdAsParameter() throws Exception{
+        String idToSearch = "1";
+        String requestUri = API_URI_RESOURCE + idToSearch;
+        productInstance.setId("1");
+        when(productService.findProductById(idToSearch)).thenReturn(Optional.of(productInstance));
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(productInstance)));
+
+        verify(productService).findProductById(idToSearch);
+    }
+
+    @Test
     void shouldReturnAListOfProductsOnGetHTTPMethod() throws Exception{
         List<Product> productList = new ArrayList<>();
 
@@ -88,6 +118,7 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(expectedContent));
+        verify(productService).getAllProducts();
     }
 
     @Test
