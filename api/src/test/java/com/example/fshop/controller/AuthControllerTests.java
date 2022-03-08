@@ -102,7 +102,7 @@ public class AuthControllerTests {
         Role role = new Role(ERoles.ROLE_CLIENT);
 
         when(roleRepository.findByName(ERoles.ROLE_CLIENT)).thenReturn(Optional.of(role));
-        when(userRepository.save(userInstance)).thenReturn(userInstance);
+        when(userRepository.save(any())).thenReturn(any());
 
         mockMvc.perform(post(env.getProperty("fshop.app.apiUrlBase") + "/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
