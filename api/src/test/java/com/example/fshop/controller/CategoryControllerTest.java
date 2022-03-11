@@ -1,7 +1,7 @@
 package com.example.fshop.controller;
 
 import com.example.fshop.models.Category;
-import com.example.fshop.payload.ErrorResponse;
+import com.example.fshop.payload.Responses.ErrorResponse;
 import com.example.fshop.repository.CategoryRepository;
 import com.example.fshop.service.CategoryService;
 import com.fasterxml.jackson.databind.ObjectMapper;

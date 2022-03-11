@@ -59,12 +59,12 @@ public class ProductServiceTest {
         List<Product> expectedList = new ArrayList<>();
         expectedList.add(productInstance);
 
-        when(productRepository.findByIsActiveTrue()).thenReturn(expectedList);
+        when(productRepository.findByIsOnSaleIsTrue()).thenReturn(expectedList);
 
         List<Product> productsFound = productService.getAllProducts();
 
         assertEquals(expectedList, productsFound);
-        verify(productRepository).findByIsActiveTrue();
+        verify(productRepository).findByIsOnSaleIsTrue();
     }
 
     @Test

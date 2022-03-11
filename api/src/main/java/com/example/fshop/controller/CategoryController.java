@@ -1,8 +1,8 @@
 package com.example.fshop.controller;
 
 import com.example.fshop.models.Category;
-import com.example.fshop.payload.CategoryRequest;
-import com.example.fshop.payload.ErrorResponse;
+import com.example.fshop.payload.Requests.CategoryRequest;
+import com.example.fshop.payload.Responses.ErrorResponse;
 import com.example.fshop.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface ProductRepository extends MongoRepository<Product, String> {
     Optional<Product> findById(String id);
     Boolean existsByName(String name);
-    List<Product> findByIsActiveTrue();
+
+    List<Product> findByIsOnSaleIsTrue();
 }

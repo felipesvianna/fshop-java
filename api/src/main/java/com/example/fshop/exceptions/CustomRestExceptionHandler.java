@@ -1,6 +1,6 @@
 package com.example.fshop.exceptions;
 
-import com.example.fshop.payload.ErrorResponse;
+import com.example.fshop.payload.Responses.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

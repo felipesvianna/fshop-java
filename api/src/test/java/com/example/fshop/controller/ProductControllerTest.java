@@ -1,8 +1,8 @@
 package com.example.fshop.controller;
 import com.example.fshop.models.Category;
 import com.example.fshop.models.Product;
-import com.example.fshop.payload.ErrorResponse;
-import com.example.fshop.payload.ProductRequest;
+import com.example.fshop.payload.Responses.ErrorResponse;
+import com.example.fshop.payload.Requests.ProductRequest;
 import com.example.fshop.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +59,7 @@ public class ProductControllerTest {
         productCategory.setId("1");
         BigDecimal price = new BigDecimal("299.00");
         productInstance = new Product(name, description, price, 5, productCategory);
-        productInstance.setActive(true);
+        productInstance.setOnSale(true);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ProductControllerTest {
                 5,
                 new Category("Pet Supplies", true));
         anotherProduct.setId("2");
-        anotherProduct.setActive(true);
+        anotherProduct.setOnSale(true);
 
         productList.add(productInstance);
         productList.add(anotherProduct);
@@ -126,7 +126,7 @@ public class ProductControllerTest {
         ProductRequest productRequest = new ProductRequest();
         BeanUtils.copyProperties(productInstance, productRequest);
         productRequest.setPrice(productInstance.getPrice().toString());
-        productRequest.setQuantity("5");
+        productRequest.setStockQuantity("5");
         productRequest.setCategoryId("1");
 
         ErrorResponse expectedContent = new ErrorResponse(HttpStatus.CONFLICT.value(),
@@ -151,7 +151,7 @@ public class ProductControllerTest {
         ProductRequest productRequest = new ProductRequest();
         productRequest.setName("Pr");
         productRequest.setDescription("Lorem ipsum");
-        productRequest.setQuantity("5");
+        productRequest.setStockQuantity("5");
         productRequest.setPrice("12.00");
 
         ErrorResponse expectedContent = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
@@ -173,7 +173,7 @@ public class ProductControllerTest {
         ProductRequest productRequest = new ProductRequest();
         BeanUtils.copyProperties(productInstance, productRequest);
         productRequest.setPrice(productInstance.getPrice().toString());
-        productRequest.setQuantity("5");
+        productRequest.setStockQuantity("5");
         productRequest.setCategoryId("1");
 
         String contentData = objectMapper.writeValueAsString(productRequest);

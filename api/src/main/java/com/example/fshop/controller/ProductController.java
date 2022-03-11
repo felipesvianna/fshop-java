@@ -2,8 +2,8 @@ package com.example.fshop.controller;
 
 import com.example.fshop.models.Category;
 import com.example.fshop.models.Product;
-import com.example.fshop.payload.ErrorResponse;
-import com.example.fshop.payload.ProductRequest;
+import com.example.fshop.payload.Responses.ErrorResponse;
+import com.example.fshop.payload.Requests.ProductRequest;
 import com.example.fshop.service.CategoryService;
 import com.example.fshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +51,9 @@ public class ProductController {
         Product newProduct = new Product();
         newProduct.setName(productRequest.getName());
         newProduct.setDescription(productRequest.getDescription());
-        newProduct.setQuantity(Integer.parseInt(productRequest.getQuantity()));
+        newProduct.setStockQuantity(Integer.parseInt(productRequest.getStockQuantity()));
         newProduct.setPrice(productRequest.getPrice());
-        newProduct.setActive(true);
+        newProduct.setOnSale(true);
 
         Optional<Category> category = categoryService.findCategoryById(productRequest.getCategoryId());
         if(category.isPresent()) {

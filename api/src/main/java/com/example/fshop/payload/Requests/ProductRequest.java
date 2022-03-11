@@ -1,4 +1,4 @@
-package com.example.fshop.payload;
+package com.example.fshop.payload.Requests;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,7 +16,7 @@ public class ProductRequest {
     private String price;
 
     @NotBlank
-    private String quantity;
+    private String stockQuantity;
 
     private String categoryId;
 
@@ -52,11 +52,11 @@ public class ProductRequest {
         this.categoryId = categoryId;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setStockQuantity(String stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 }

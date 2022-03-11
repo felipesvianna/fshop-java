@@ -3,7 +3,7 @@ package com.example.fshop.controller;
 import com.example.fshop.models.ERoles;
 import com.example.fshop.models.Role;
 import com.example.fshop.models.User;
-import com.example.fshop.payload.ErrorResponse;
+import com.example.fshop.payload.Responses.ErrorResponse;
 import com.example.fshop.repository.RoleRepository;
 import com.example.fshop.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

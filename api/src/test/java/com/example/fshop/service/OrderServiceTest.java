@@ -36,30 +36,23 @@ public class OrderServiceTest {
 
     private Order orderInstance;
 
-    private static final List<Product> productList = new ArrayList<>();
+    private static final List<ProductOrder> productList = new ArrayList<>();
 
     @BeforeAll
     public static void init() {
+        Product productOne = new Product();
 
-        Product productInstance = new Product(
-                "Dog supplies automatic feeder",
-                "water dispenser 3.8L portable dog water bottle bowl (Color : A, Size : 3.8L) ",
-                new BigDecimal("99.00"),
-                5,
-                new Category("Pet Supplies", true));
-        productInstance.setId("1");
-        productInstance.setActive(true);
+        String name = "Oculus Quest 2";
+        String description = "Next-level Hardware. Make every move count with a blazing-fast processor" +
+                "and our highest-resolution display";
+        Category productCategory = new Category("Video Games", true);
+        productCategory.setId("1");
+        BigDecimal price = new BigDecimal("299.00");
+        productOne = new Product(name, description, price, 5, productCategory);
 
-        Product anotherProduct = new Product(
-                "Pokémon Assorted Cards, 50 Pieces ",
-                "YOUR BEST VALUE ON POKEMON CARDS: Look no further for the best deals on assorted Pokemon cards. ",
-                new BigDecimal("6.81"),
-                24,
-                new Category("Toys and Games", true));
-        anotherProduct.setId("2");
-        anotherProduct.setActive(true);
+        ProductOrder productInstance = new ProductOrder(productOne, 1);
 
-        productList.add(anotherProduct);
+        productList.add(productInstance);
     }
 
     @BeforeEach

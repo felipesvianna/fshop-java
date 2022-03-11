@@ -1,9 +1,8 @@
 package com.example.fshop.controller;
 
 import com.example.fshop.models.*;
-import com.example.fshop.payload.ErrorResponse;
-import com.example.fshop.payload.OrderRequest;
-import com.example.fshop.payload.ProductRequest;
+import com.example.fshop.payload.Responses.ErrorResponse;
+import com.example.fshop.payload.Requests.OrderRequest;
 import com.example.fshop.repository.OrderRepository;
 import com.example.fshop.service.OrderService;
 import com.example.fshop.service.UserService;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -61,30 +59,23 @@ public class OrderControllerTest {
 
     private Order orderInstance;
 
-    private static final List<Product> productList = new ArrayList<>();
+    private static final List<ProductOrder> productList = new ArrayList<>();
 
     @BeforeAll
     public static void init() {
+        Product productOne = new Product();
 
-        Product productInstance = new Product(
-                "Dog supplies automatic feeder",
-                "water dispenser 3.8L portable dog water bottle bowl (Color : A, Size : 3.8L) ",
-                new BigDecimal("99.00"),
-                5,
-                new Category("Pet Supplies", true));
-        productInstance.setId("1");
-        productInstance.setActive(true);
+        String name = "Oculus Quest 2";
+        String description = "Next-level Hardware. Make every move count with a blazing-fast processor" +
+                "and our highest-resolution display";
+        Category productCategory = new Category("Video Games", true);
+        productCategory.setId("1");
+        BigDecimal price = new BigDecimal("299.00");
+        productOne = new Product(name, description, price, 5, productCategory);
 
-        Product anotherProduct = new Product(
-                "Pokemon Assorted Cards, 50 Pieces ",
-                "YOUR BEST VALUE ON POKEMON CARDS: Look no further for the best deals on assorted Pokemon cards. ",
-                new BigDecimal("6.81"),
-                24,
-                new Category("Toys and Games", true));
-        anotherProduct.setId("2");
-        anotherProduct.setActive(true);
+        ProductOrder productInstance = new ProductOrder(productOne, 1);
 
-        productList.add(anotherProduct);
+        productList.add(productInstance);
     }
 
     @BeforeEach
@@ -128,15 +119,17 @@ public class OrderControllerTest {
 
     @Test
     void shouldReturnAListOfOrdersFromCustomerOnGetHTTPMethod() throws Exception{
-        String userIdToFind = orderInstance.getCustomer().getId();
+        String userId = orderInstance.getCustomer().getId();
+        User userInstance = orderInstance.getCustomer();
         List<Order> ordersList = new ArrayList<>();
         ordersList.add(orderInstance);
 
         String expectedContent = objectMapper.writeValueAsString(ordersList);
 
+        when(userService.findUserById(userId)).thenReturn(Optional.of(userInstance));
         when(orderService.getAllOrdersFromUser(any())).thenReturn(ordersList);
 
-        mockMvc.perform(get(API_URI_BASE + "/users/" + userIdToFind + "/orders")
+        mockMvc.perform(get(API_URI_BASE + "/users/" + userId + "/orders")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(expectedContent));
@@ -147,16 +140,22 @@ public class OrderControllerTest {
 
     @Test
     void shouldReturnResponseError409WhenOrderAlreadyExists() throws Exception{
-        OrderRequest orderRequest = new OrderRequest();
-        orderRequest.setTotal("123.99");
-        List<String> productIdsList = Arrays.asList("1", "2");
-        orderRequest.setProductIdList(productIdsList);
         String userId = orderInstance.getCustomer().getId();
+        User userInstance = orderInstance.getCustomer();
+        OrderRequest orderRequest = new OrderRequest();
+        OrderRequest.SelectedProduct productOne = new OrderRequest.SelectedProduct("1", 5);
+        OrderRequest.SelectedProduct productTwo = new OrderRequest.SelectedProduct("2", 10);
+        List<OrderRequest.SelectedProduct> productList = new ArrayList<>();
+        productList.add(productOne);
+        productList.add(productTwo);
+
+        orderRequest.setProductList(productList);
 
         String contentData = objectMapper.writeValueAsString(orderRequest);
         ErrorResponse expectedContent = new ErrorResponse(HttpStatus.CONFLICT.value(),
                 HttpStatus.CONFLICT.getReasonPhrase(), "Order already exists");
 
+        when(userService.findUserById(userId)).thenReturn(Optional.of(userInstance));
         when(orderService.orderAlreadyExists(anyInt())).thenReturn(true);
 
         mockMvc.perform(post(API_URI_BASE + "/users/" + userId + "/orders")
@@ -170,16 +169,19 @@ public class OrderControllerTest {
 
     @Test
     void shouldSaveNewOrderWithValidData() throws Exception {
+        List<OrderRequest.SelectedProduct> selectedProductList = new ArrayList<>();
+        User userInstance = orderInstance.getCustomer();
+        String userId = userInstance.getId();
+
         OrderRequest orderRequest = new OrderRequest();
-        orderRequest.setTotal("123.99");
-        List<String> productIdsList = Arrays.asList("1", "2");
-        orderRequest.setProductIdList(productIdsList);
+        OrderRequest.SelectedProduct productOne = new OrderRequest.SelectedProduct("1", 5);
+        OrderRequest.SelectedProduct productTwo = new OrderRequest.SelectedProduct("2", 10);
+        selectedProductList.add(productOne);
+        selectedProductList.add(productTwo);
+        orderRequest.setProductList(selectedProductList);
 
         String contentData = objectMapper.writeValueAsString(orderRequest);
         String expectedContent = objectMapper.writeValueAsString(orderInstance);
-
-        String userId = orderInstance.getCustomer().getId();
-        User userInstance = orderInstance.getCustomer();
 
         when(userService.findUserById(userId)).thenReturn(Optional.of(userInstance));
         when(orderService.saveOrder(any())).thenReturn(orderInstance);

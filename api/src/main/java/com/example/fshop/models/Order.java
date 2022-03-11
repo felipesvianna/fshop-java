@@ -20,21 +20,27 @@ public class Order {
     @NotBlank
     private BigDecimal total;
 
+    private Boolean isPaid;
+
     @NotBlank
     private LocalDateTime dateCreated;
+
+    private LocalDateTime paymentDate;
 
     @DBRef
     private User customer;
 
     @DBRef
-    List<Product> productList;
+    List<ProductOrder> productList;
 
     public Order() {}
 
-    public Order(BigDecimal total, LocalDateTime dateCreated, List<Product> productList) {
+    public Order(BigDecimal total, LocalDateTime dateCreated, List<ProductOrder> productList) {
         this.total = total;
         this.dateCreated = dateCreated;
         this.productList = productList;
+        this.setPaid(false);
+        this.setPaymentDate(null);
     }
 
     public String getId() {
@@ -77,11 +83,27 @@ public class Order {
         this.dateCreated = dateCreated;
     }
 
-    public List<Product> getProductList() {
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
+    public List<ProductOrder> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<ProductOrder> productList) {
         this.productList = productList;
+    }
+
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

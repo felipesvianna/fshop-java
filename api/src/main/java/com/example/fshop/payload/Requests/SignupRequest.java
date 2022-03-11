@@ -1,4 +1,4 @@
-package com.example.fshop.payload;
+package com.example.fshop.payload.Requests;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

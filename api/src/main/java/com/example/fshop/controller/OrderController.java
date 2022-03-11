@@ -1,23 +1,20 @@
 package com.example.fshop.controller;
 
-import com.example.fshop.models.Category;
 import com.example.fshop.models.Order;
 import com.example.fshop.models.Product;
+import com.example.fshop.models.ProductOrder;
 import com.example.fshop.models.User;
-import com.example.fshop.payload.ErrorResponse;
-import com.example.fshop.payload.OrderRequest;
-import com.example.fshop.payload.ProductRequest;
+import com.example.fshop.payload.Responses.ErrorResponse;
+import com.example.fshop.payload.Requests.OrderRequest;
 import com.example.fshop.service.OrderService;
+import com.example.fshop.service.ProductOrderService;
 import com.example.fshop.service.ProductService;
 import com.example.fshop.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +38,9 @@ public class OrderController {
     UserService userService;
 
     @Autowired
+    ProductOrderService productOrderService;
+
+    @Autowired
     AuthenticationManager authenticationManager;
 
     @GetMapping("/users/{userId}/orders")
@@ -54,10 +54,20 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(ordersList);
     }
 
+
+    // @Transactional
     @PostMapping("/users/{userId}/orders")
     public ResponseEntity<Object> registerNewOrder(@RequestBody @Valid OrderRequest orderRequest, @PathVariable(value = "userId") String userId) {
-
+        List<ProductOrder> products = new ArrayList<>();
+        Optional<User> currentUser = userService.findUserById(userId);
+        List<OrderRequest.SelectedProduct> productList = orderRequest.getProductList();
         int generatedNumber = Math.abs((int)Math.floor(Math.random()*(0-100+1)+1));
+
+        if(currentUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                            HttpStatus.NOT_FOUND.getReasonPhrase(), "Customer not found"));
+        }
 
         if(orderService.orderAlreadyExists(generatedNumber)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -65,25 +75,44 @@ public class OrderController {
                             HttpStatus.CONFLICT.getReasonPhrase(), "Order already exists"));
         }
 
-        List<Product> productsList = new ArrayList<Product>();
-        Optional<User> currentUser = userService.findUserById(userId);
-
-        Order newOrder = new Order();
-        newOrder.setNumber(generatedNumber);
-        newOrder.setTotal(new BigDecimal(orderRequest.getTotal()));
-        newOrder.setDateCreated(LocalDateTime.now(ZoneId.of("UTC")));
-        newOrder.setCustomer(currentUser.get());
-
-        List<String> productsIds = orderRequest.getProductIdList();
-        productsIds.forEach(productId -> {
-            Optional<Product> productFound = productService.findProductById(productId);
-            if(productFound.isPresent()){
-                productsList.add(productFound.get());
+        try {
+            for(OrderRequest.SelectedProduct product : productList) {
+                Optional<Product> productFound = productService.findProductById(product.id);
+                if(productFound.isPresent()){
+                    ProductOrder productOrder = new ProductOrder(productFound.get(), product.getQuantity());
+                    products.add(productOrder);
+                    productOrderService.saveProductOrder(productOrder);
+                }
             }
-        });
 
+            Order orderToSave = this.buildOrder(generatedNumber, currentUser.get(), products);
+            return ResponseEntity.status(HttpStatus.CREATED).body(orderService.saveOrder(orderToSave));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage()));
+        }
+    }
+
+    protected Order buildOrder(int number, User customer, List<ProductOrder> productsList) {
+        Order newOrder = new Order();
+        BigDecimal itemCost = BigDecimal.ZERO;
+        BigDecimal total = BigDecimal.ZERO;
+
+        newOrder.setNumber(number);
+        newOrder.setDateCreated(LocalDateTime.now(ZoneId.of("UTC")));
+        newOrder.setCustomer(customer);
+        newOrder.setPaid(false);
+
+        for(ProductOrder product : productsList) {
+            itemCost = product.getProduct().getPrice();
+            itemCost  = itemCost.multiply(BigDecimal.valueOf(product.getQuantity()));
+            total = total.add(itemCost);
+        }
+
+        newOrder.setTotal(total);
         newOrder.setProductList(productsList);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.saveOrder(newOrder));
+        return newOrder;
     }
 }

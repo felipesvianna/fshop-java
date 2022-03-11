@@ -1,4 +1,4 @@
-package com.example.fshop.payload;
+package com.example.fshop.payload.Responses;
 
 import java.util.List;
 

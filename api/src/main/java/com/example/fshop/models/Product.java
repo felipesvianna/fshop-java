@@ -27,22 +27,23 @@ public class Product {
     private BigDecimal price;
 
     @NotBlank
-    private int quantity;
+    private int stockQuantity;
 
     @DBRef
     private Category category;
 
     @JsonIgnore
-    private Boolean isActive;
+    private Boolean isOnSale;
 
     public Product() {}
 
-    public Product(String name, String description, BigDecimal price, int quantity, Category category) {
+    public Product(String name, String description, BigDecimal price, int stockQuantity, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.quantity = quantity;
+        this.stockQuantity = stockQuantity;
         this.category = category;
+        this.setOnSale(true);
     }
 
     public String getId() {
@@ -85,20 +86,20 @@ public class Product {
         this.category = category;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public Boolean getOnSale() {
+        return isOnSale;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setOnSale(Boolean active) {
+        isOnSale = active;
     }
 
     @Override

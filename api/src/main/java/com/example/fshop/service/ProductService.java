@@ -17,7 +17,7 @@ public class ProductService {
     public Optional<Product> findProductById(String productId) { return productRepository.findById(productId); }
 
     public List<Product> getAllProducts() {
-        return productRepository.findByIsActiveTrue();
+        return productRepository.findByIsOnSaleIsTrue();
     }
 
     public Boolean productExistsByName(String name) {
