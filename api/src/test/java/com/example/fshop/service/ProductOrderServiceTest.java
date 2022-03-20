@@ -4,7 +4,6 @@ import com.example.fshop.models.Category;
 import com.example.fshop.models.Product;
 import com.example.fshop.models.ProductOrder;
 import com.example.fshop.repository.ProductOrderRepository;
-import com.example.fshop.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

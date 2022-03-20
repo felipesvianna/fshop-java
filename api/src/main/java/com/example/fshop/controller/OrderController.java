@@ -54,7 +54,6 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(ordersList);
     }
 
-
     // @Transactional
     @PostMapping("/users/{userId}/orders")
     public ResponseEntity<Object> registerNewOrder(@RequestBody @Valid OrderRequest orderRequest, @PathVariable(value = "userId") String userId) {

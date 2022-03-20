@@ -13,14 +13,14 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories
 @SpringBootApplication
 public class FshopApplication {
-	@Bean
-	MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
-		TransactionOptions transactionOptions = TransactionOptions.builder()
-				.readConcern(ReadConcern.LOCAL)
-				.writeConcern(WriteConcern.W1)
-				.build();
-		return new MongoTransactionManager(dbFactory, transactionOptions);
-	}
+//	@Bean
+//	MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+//		TransactionOptions transactionOptions = TransactionOptions.builder()
+//				.readConcern(ReadConcern.LOCAL)
+//				.writeConcern(WriteConcern.W1)
+//				.build();
+//		return new MongoTransactionManager(dbFactory, transactionOptions);
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(FshopApplication.class, args);
