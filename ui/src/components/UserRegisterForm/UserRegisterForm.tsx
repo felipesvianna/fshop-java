@@ -1,4 +1,5 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useContext, useState } from "react";
+import AuthenticationContext from "../../context/AuthenticationContext";
 import { UserProps } from "../../interfaces";
 import validateUserRegisterForm from "./validateUserRegisterForm";
 
@@ -10,7 +11,7 @@ interface FormErrorsProps {
 }
 
 interface UserRegisterFormProps {
-  handleSubmit?: (e: React.SyntheticEvent) => void;
+  handleSubmit?: Function;
 }
 
 const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
@@ -25,6 +26,7 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
 
   const [formData, setFormData] = useState<UserProps>(initialState);
   const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
+  const [alertMessage, setAlertMessage] = useState<String>("");
 
   const onChangeForm = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -33,14 +35,21 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
     });
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const errors = validateUserRegisterForm(formData);
+    let errors = validateUserRegisterForm(formData);
+
     if (typeof handleSubmit === "function" && !errors) {
-      handleSubmit(e);
-    } else {
-      setFormErrors(errors);
+      const response = await handleSubmit(formData);
+
+      if (response?.status === 409) {
+        errors = { ...errors, email: response?.errors[0] };
+      } else {
+        setAlertMessage("User registered successfully!");
+      }
     }
+
+    setFormErrors(errors);
   };
 
   return (
@@ -124,6 +133,9 @@ const UserRegisterForm: FC<UserRegisterFormProps> = ({ handleSubmit }) => {
         >
           Register
         </button>
+        <strong className="text-green-500 mt-4">
+          {alertMessage ? alertMessage : null}
+        </strong>
       </form>
     </>
   );

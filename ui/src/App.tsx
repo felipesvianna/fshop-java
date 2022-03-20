@@ -17,6 +17,14 @@ import AuthenticationContextProvider from "./context/AuthenticationContext/Authe
 import CartContextProvider from "./context/CartContext/CartContextProvider";
 import CartPage from "./pages/CartPage/CartPage";
 
+import { setHeaderAuthorizationWithToken } from "./util/httpHeaderHelper";
+
+const token = localStorage.getItem("token");
+
+if (token) {
+  setHeaderAuthorizationWithToken(token);
+}
+
 function App() {
   return (
     <AuthenticationContextProvider>

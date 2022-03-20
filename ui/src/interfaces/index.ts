@@ -8,6 +8,10 @@ export interface AuthenticationProps {
   userData?: UserProps;
 }
 
+export interface AuthenticationProviderProps extends AuthenticationProps {
+  createAccount?: Function;
+}
+
 export interface LinkButtonProps {
   routeName: string;
   linkName: string;

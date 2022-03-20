@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthenticationProps } from "../../interfaces";
+import { AuthenticationProviderProps } from "../../interfaces";
 
 // autenticacaoContext
-export default React.createContext<AuthenticationProps>({});
+export default React.createContext<AuthenticationProviderProps>({});

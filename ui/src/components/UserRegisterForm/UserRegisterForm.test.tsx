@@ -59,7 +59,7 @@ describe("UserRegisterForm component", () => {
   });
 
   it("should fill form with valid input and call handleSubmit on submit", async () => {
-    const handleSubmit = jest.fn((e) => e.preventDefault());
+    const handleSubmit = jest.fn();
     render(<UserRegisterForm handleSubmit={handleSubmit} />);
     await fillAndSubmitForm(validInputValues);
     expect(handleSubmit).toBeCalled();
