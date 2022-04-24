@@ -1,13 +1,39 @@
-import axios, { AxiosStatic } from "axios";
 import AuthenticationApi from "../api/AuthenticationApi";
 import createClientAxios from "../util/axios";
 
-jest.mock("../util/axios", () => ({
-  post: jest.fn(),
-}));
-
 describe("authenticationApi tests", () => {
-  it("should register user", async () => {
+  const mockClientAxiosPost = jest.spyOn(createClientAxios, "post");
+
+  beforeAll(() => {
+    jest.clearAllMocks();
+  });
+  it("should initiate user session at api", async () => {
+    const loginCredentials = { email: "felipe1@email.com", password: "felipe" };
+
+    const loginResponse = {
+      id: "1",
+      email: "felipe1@email.com",
+      roles: ["ROLE_CLIENT"],
+      accessToken: "tokentoken",
+      tokenType: "Bearer",
+    };
+
+    mockClientAxiosPost.mockImplementation(
+      jest.fn(() => Promise.resolve(loginResponse))
+    );
+
+    const expectedResponse = await AuthenticationApi.initiateUserSession(
+      loginCredentials
+    );
+
+    expect(expectedResponse).toEqual(loginResponse);
+    expect(createClientAxios.post).toHaveBeenCalledWith(
+      "/auth/signin",
+      loginCredentials
+    );
+  });
+
+  it("should create new user account at api", async () => {
     const userData = {
       id: 1,
       firstName: "Airton",
@@ -30,9 +56,9 @@ describe("authenticationApi tests", () => {
       ],
     };
 
-    jest
-      .spyOn(createClientAxios, "post")
-      .mockImplementation(jest.fn(() => Promise.resolve(response)));
+    mockClientAxiosPost.mockImplementation(
+      jest.fn(() => Promise.resolve(response))
+    );
 
     const expectedResponse = await AuthenticationApi.createAccount(userData);
 
