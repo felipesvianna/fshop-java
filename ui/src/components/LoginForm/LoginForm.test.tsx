@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+import { MemoryRouter } from "react-router-dom";
 import LoginForm from "./LoginForm";
 
 async function fillAndSubmitLoginForm(): Promise<void> {
@@ -14,17 +15,25 @@ async function fillAndSubmitLoginForm(): Promise<void> {
 }
 
 describe("LoginForm component", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
 
   it("should call handleSubmit on button click", async () => {
-    const handleSubmit = jest.fn((e) => e.preventDefault());
-    render(<LoginForm handleSubmit={handleSubmit} />);
+    const handleSubmit = jest.fn();
+    render(
+      <MemoryRouter>
+        <LoginForm handleSubmit={handleSubmit} />
+      </MemoryRouter>
+    );
     await fillAndSubmitLoginForm();
     expect(handleSubmit).toBeCalled();
   });
 
   it("should render a form without errors", () => {
-    wrapper = shallow(<LoginForm />);
+    wrapper = mount(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
     expect(wrapper.find('input[id="email"]').exists()).toEqual(true);
     expect(wrapper.find('input[id="password"]').exists()).toEqual(true);
     expect(wrapper.find("button").text()).toEqual("Sign In");
