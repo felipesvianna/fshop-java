@@ -1,8 +1,8 @@
 import React, { FC, useReducer } from "react";
-import { UserProps } from "../../interfaces";
+import { LoginCredentialsProps, UserProps } from "../../interfaces";
 import authenticationReducer from "../../reducers/authenticationReducer";
 import AuthenticationContext from "./";
-import { SUCCESSFUL_REGISTRATION } from "../../actionTypes";
+import { SUCCESSFUL_LOGIN, SUCCESSFUL_REGISTRATION } from "../../actionTypes";
 import AuthenticationApi from "../../api/AuthenticationApi";
 import { AxiosError } from "axios";
 
@@ -30,6 +30,19 @@ const AuthenticationContextProvider: FC<AuthenticationContextProps> = ({
         dispatch({ type: SUCCESSFUL_REGISTRATION });
         return response;
       }
+    } catch (e: unknown) {}
+  }
+
+  async function loginUser(loginCredentials: LoginCredentialsProps) {
+    try {
+      const response = await AuthenticationApi.initiateUserSession(
+        loginCredentials
+      );
+      if (response.status === 200) {
+        dispatch({ type: SUCCESSFUL_LOGIN });
+
+        return response;
+      }
     } catch (e: unknown) {
       const error = e as AxiosError;
       return error.response?.data;
@@ -42,6 +55,7 @@ const AuthenticationContextProvider: FC<AuthenticationContextProps> = ({
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         createAccount,
+        loginUser,
       }}
     >
       {children}

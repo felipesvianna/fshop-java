@@ -1,7 +1,8 @@
 import {
-  GET_USER_DATA,
+  SUCCESSFUL_LOGIN,
   SIGN_OUT,
   SUCCESSFUL_REGISTRATION,
+  GET_USER_DATA,
 } from "../actionTypes";
 import authenticationReducer from "./authenticationReducer";
 
@@ -32,6 +33,15 @@ describe("Authentication Reducer tests", () => {
     });
 
     expect(newState).toStrictEqual(resetState);
+  });
+
+  it("should return userData object on SUCCESSFUL_LOGIN action type", () => {
+    const stateWithoutUserData = { ...stateMock, userData: undefined };
+
+    const newState = authenticationReducer(stateWithoutUserData, {
+      type: SUCCESSFUL_LOGIN,
+    });
+    expect(newState?.isAuthenticated).toBe(true);
   });
 
   it("should return userData object on GET_USER_DATA action type", () => {

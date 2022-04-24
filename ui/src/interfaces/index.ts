@@ -2,6 +2,11 @@ export interface CartProps {
   itemsList: ProductProps[];
 }
 
+export interface LoginCredentialsProps {
+  email: string;
+  password: string;
+}
+
 export interface AuthenticationProps {
   token?: string;
   isAuthenticated?: boolean;
@@ -10,6 +15,7 @@ export interface AuthenticationProps {
 
 export interface AuthenticationProviderProps extends AuthenticationProps {
   createAccount?: Function;
+  loginUser?: Function;
 }
 
 export interface LinkButtonProps {
