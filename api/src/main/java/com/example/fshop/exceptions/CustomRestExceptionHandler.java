@@ -136,10 +136,22 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getLocalizedMessage());
+        ErrorResponse errorResponse;
+        HttpStatus httpStatus;
+
+        if(ex.getLocalizedMessage() == "Bad credentials") {
+            errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(),
+                    HttpStatus.UNAUTHORIZED.getReasonPhrase(), ex.getLocalizedMessage());
+
+            httpStatus = HttpStatus.UNAUTHORIZED;
+        }else {
+            errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getLocalizedMessage());
+
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
         return new ResponseEntity<Object>(
-                errorResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+                errorResponse, new HttpHeaders(), httpStatus);
     }
 }

@@ -23,7 +23,7 @@ public class CustomRestExceptionHandlerTest {
     // TODO: MissingServletRequestParameterException test
     // TODO: ConstraintViolationException test
     // TODO: MethodArgumentTypeMismatchException test
-    // TODO: INTERNAL_SERVER_ERRORException test
+    // TODO: INTERNAL_SERVER_ERROR Exception test
 
     @Test
     void shouldReturnUnsupportedMediaTypeWhenThrownHttpMediaTypeNotSupportedException() {
