@@ -100,6 +100,36 @@ public class OrderControllerTest {
     }
 
     @Test
+    void shouldReturnOrderWhenCallGetHTTPMethodWithIdAsParameter() throws Exception{
+        String idToSearch = "1";
+        String requestUri = API_URI_BASE + "/orders/" + idToSearch;
+
+        when(orderService.findOrderById(idToSearch)).thenReturn(Optional.of(orderInstance));
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(orderInstance)));
+
+        verify(orderService).findOrderById(idToSearch);
+    }
+
+    @Test
+    void shouldReturnResponseError404AndWhenACategoryIsNotFound() throws Exception{
+        String idToSearch = "1";
+        String requestUri = API_URI_BASE + "/orders/" + idToSearch;
+        ErrorResponse expectedContent = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(), "Order not found");
+
+        when(orderService.findOrderById(idToSearch)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get(requestUri)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedContent)));
+    }
+
+    @Test
     void shouldReturnResponseError404AndWhenAUserIsNotFound() throws Exception{
         String idToSearch = "23421";
         String requestUri = API_URI_BASE + "/users/" + idToSearch + "/orders";

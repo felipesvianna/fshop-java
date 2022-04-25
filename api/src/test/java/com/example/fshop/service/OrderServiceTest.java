@@ -15,10 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -74,6 +71,16 @@ public class OrderServiceTest {
         orderInstance.setNumber(123456);
         orderInstance.setCustomer(userInstance);
         orderInstance.setId("1");
+    }
+
+    @Test
+    void shouldCallFindByIdMethodWhenCallGetCategoryMethod() {
+        when(orderRepository.findById(orderInstance.getId())).thenReturn(Optional.of(orderInstance));
+
+        Optional<Order> orderFound = orderService.findOrderById("1");
+
+        assertThat(orderFound.get()).isEqualTo(orderInstance);
+        verify(orderRepository).findById("1");
     }
 
     @Test

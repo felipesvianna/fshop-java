@@ -1,9 +1,6 @@
 package com.example.fshop.controller;
 
-import com.example.fshop.models.Order;
-import com.example.fshop.models.Product;
-import com.example.fshop.models.ProductOrder;
-import com.example.fshop.models.User;
+import com.example.fshop.models.*;
 import com.example.fshop.payload.Responses.ErrorResponse;
 import com.example.fshop.payload.Requests.OrderRequest;
 import com.example.fshop.service.OrderService;
@@ -42,6 +39,17 @@ public class OrderController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @GetMapping("/orders/{orderId}")
+    public ResponseEntity<Object> getOrder(@PathVariable(value = "orderId") String id){
+        Optional<Order> orderFound = orderService.findOrderById(id);
+        if(orderFound.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                            HttpStatus.NOT_FOUND.getReasonPhrase(), "Order not found"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(orderFound.get());
+    }
 
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Object> getAllOrdersFromUser(@PathVariable(value = "userId") String userId) {
